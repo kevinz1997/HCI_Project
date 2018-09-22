@@ -1,0 +1,28 @@
+﻿1: Cho chủ sân:
+	- Công việc tìm kiếm khách hàng nó có khăn không?
+	- Việc đặt sân có ảnh hưởng tới việc sắp xếp lịch không?
+	- Anh có muốn một ứng dụng giúp a tìm kiếm khách hàng ?
+	- nếu có ứng như vậy a có ủng hộ để  giúp tụ em phát triển không?
+	- Giá cả sân của anh chị 1h bao nhiêu?
+	- Trong một ngày giá biến động như thế nào?
+	
+2: Cho khách hàng: 
+	- Anh có thường xuyên đá banh hong?
+	- Anh thường đặt sân như thế nào ?
+	- Anh có gặp khó khăn trong việc đặt sân hong?
+	- Anh có muốn biết chi tiết một sân trước khi đặt không?
+	- Anh có muốn một ứng dụng giúp tìm kiếm sân dễ dàng hơn không?
+	- Anh mong muốn gì ở ứng dụng để hổ trợ tốt nhất ?
+
+Màn hình:
+	Login
+	Home
+	Register
+	Tìm kiếm quang đây
+	Search
+	Individual
+	Đặt sân
+
+
+	
+	
