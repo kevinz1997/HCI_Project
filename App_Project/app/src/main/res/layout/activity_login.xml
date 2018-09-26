@@ -23,7 +23,8 @@
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/hinhnenlogin">
 
         <LinearLayout
             android:id="@+id/email_login_form"
@@ -31,18 +32,37 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_gravity="center">
-
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login"
+                android:textSize="48dp"
+                android:textColor="#FFF1EDED"
+                />
             <AutoCompleteTextView
                 android:id="@+id/email"
+                android:textColor="#FFF1EDED"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:drawableLeft="@drawable/user"
+                android:textSize="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:textColorHint="#FFEFE6EA"/>
 
             <EditText
                 android:id="@+id/password"
+                android:layout_marginLeft="25dp"
+                android:textColor="#FFF1EDED"
+                android:layout_marginRight="25dp"
+                android:layout_marginBottom="10dp"
+                android:drawableLeft="@drawable/password"
+                android:textSize="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_password"
@@ -51,18 +71,36 @@
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:textColorHint="#FFEFE6EA"
+                />
 
             <Button
                 android:id="@+id/email_sign_in_button"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/action_sign_in"
+                android:text="Sign IN"
+                android:textSize="24dp"
                 android:textStyle="bold"
                 android:background="#FF5933EC"
-                android:textColor="#FFF7F2F2"/>
+                android:textColor="#FFF7F2F2"
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/register"
+                android:textColor="#FFFAF9F9"
+                android:textSize="20dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="25dp"
+                android:layout_marginTop="25dp"
+                android:onClick="clickToRegister"
+                />
 
         </LinearLayout>
     </ScrollView>
