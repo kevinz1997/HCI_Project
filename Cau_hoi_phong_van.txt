@@ -15,13 +15,14 @@
 	- Anh mong muốn gì ở ứng dụng để hổ trợ tốt nhất ?
 
 Màn hình:
-	Login
-	Home
-	Register
-	Tìm kiếm quang đây
-	Search
-	Individual
+	Login (Thêm lôc)	
+	Home (Thanh lộc)
+	Register (Thêm Lộc)
+	Tìm kiếm quang đây (Thanh Lộc)
+	Search (Hưng)
+	Individual (Thanh Lộc)
 	Đặt sân
+	chi tiết sân (Hưng)
 
 
 	
