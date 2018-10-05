@@ -1,6 +1,7 @@
 package com.example.locnt.app_project;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTabHost;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
+        actionbar.setTitle("");
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         setNavigationViewListener();
@@ -103,6 +105,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             case R.id.nav_history: {
                 Intent intent = new Intent(this, HistoryActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.nav_logout: {
+                Intent intent = new Intent(this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 break;
             }

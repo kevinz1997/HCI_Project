@@ -1,6 +1,7 @@
 package com.example.locnt.app_project;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,11 +40,6 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.viewHolder> {
         return arrayList.size();
     }
 
-    public void removeItem(int position){
-        arrayList.remove(position);
-        notifyItemRemoved(position);
-    }
-
     public class viewHolder extends RecyclerView.ViewHolder {
         TextView tvName;
         ImageView imgView;
@@ -54,8 +50,9 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.viewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    removeItem(getAdapterPosition());
-                    Toast.makeText(itemView.getContext(),"remove"+tvName.getText(),Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context,DetailActivity.class);
+                    intent.putExtra("item",getAdapterPosition());
+                    context.startActivity(intent);
                 }
             });
         }
