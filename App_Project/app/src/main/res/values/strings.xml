@@ -23,4 +23,5 @@
     </string>
     <string name="info">Thông tin cá nhân</string>
     <string name="history">Lịch sử đặt sân</string>
+    <string name="logout">Đăng xuất</string>
 </resources>

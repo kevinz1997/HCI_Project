@@ -33,13 +33,6 @@ public class HomeFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
-//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,linearLayoutManager.getOrientation());
-//        recyclerView.addItemDecoration(dividerItemDecoration);
-//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),DividerItemDecoration.VERTICAL);
-//        Drawable drawable = ContextCompat.getDrawable(getApplicationContext(),R.drawable.custom_divider);
-//        dividerItemDecoration.setDrawable(drawable);
-//        recyclerView.addItemDecoration(dividerItemDecoration);
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
         ArrayList<DataShop> shopList = new ArrayList<>();
         String s = "Tên Sân: ABCXYZ."+"\n"+"Địa điểm: ABCXYZ" + "\n" + "SĐT: 0987654321" + "\n" + "Thời Gian Hoạt Động: 8:00-22:00" + "\n" + "Giá: 200.000đ/h";
         shopList.add(new DataShop(s,R.drawable.a));
