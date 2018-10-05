@@ -21,4 +21,6 @@
     <string name="register">
      <u>Register</u>
     </string>
+    <string name="info">Thông tin cá nhân</string>
+    <string name="history">Lịch sử đặt sân</string>
 </resources>
