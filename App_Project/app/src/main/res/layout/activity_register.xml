@@ -20,12 +20,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_gravity="center"
             android:layout_margin="10dp">
-            <Button
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Back"/>
+                android:text="Back"
+                android:textColor="#FFF1EDED"
+                android:textSize="24dp"
+                android:drawableLeft="@drawable/back3"/>
             <TextView
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
@@ -35,9 +37,23 @@
                 android:textColor="#FFF1EDED"
                 />
             <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Username: "
+            android:textColor="#FFF1EDED"
+            android:textSize="24dp"/>
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Username: "
+                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeOptions="actionUnspecified"
+                android:singleLine="true"
+                android:textColor="#FFF1EDED"
+                android:textSize="20dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="FullName: "
                 android:textColor="#FFF1EDED"
                 android:textSize="24dp"/>
             <EditText
