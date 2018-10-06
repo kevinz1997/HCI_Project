@@ -42,6 +42,9 @@ public class HomeFragment extends Fragment {
         shopList.add(new DataShop(s,R.drawable.a));
         shopList.add(new DataShop(s,R.drawable.a));
         ShopAdapter shopAdapter = new ShopAdapter(shopList,getContext());
+        DataShop shop = new DataShop();
+        shop.setFooter(true);
+        shopList.add(shop);
         recyclerView.setAdapter(shopAdapter);
 
     }

@@ -16,7 +16,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private void createView() {
         Intent intent = this.getIntent();
-        int id = intent.getIntExtra("item",0);
+        String id = intent.getStringExtra("item");
         Toast.makeText(this, "item = " + id, Toast.LENGTH_SHORT).show();
     }
 }

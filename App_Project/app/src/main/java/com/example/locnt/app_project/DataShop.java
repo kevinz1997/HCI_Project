@@ -3,6 +3,7 @@ package com.example.locnt.app_project;
 public class DataShop {
     private String name;
     private int img;
+    private boolean isFooter;
 
     public String getName() {
         return name;
@@ -24,5 +25,16 @@ public class DataShop {
 
         this.name = name;
         this.img = img;
+    }
+
+    public DataShop() {
+    }
+
+    public boolean isFooter() {
+        return isFooter;
+    }
+
+    public void setFooter(boolean footer) {
+        isFooter = footer;
     }
 }
