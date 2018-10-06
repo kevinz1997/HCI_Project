@@ -36,9 +36,6 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.viewHolder> {
 
     @Override
     public viewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-//        View itemview = layoutInflater.inflate(R.layout.item,parent,false);
-//        return new viewHolder(itemview);
         View itemview;
         switch (viewType) {
             case VIEW_TYPES.Normal:
@@ -60,7 +57,9 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.viewHolder> {
     @Override
     public void onBindViewHolder(viewHolder holder, int position) {
         if (!isFooter) {
-            holder.tvName.setText(arrayList.get(position).getName());
+            holder.tvName.setText("Tên sân: " + arrayList.get(position).getName()+"\n" + "Địa chỉ: " + arrayList.get(position).getAddress()
+                    +"\n" + "SĐT: " + arrayList.get(position).getPhone()+ "\n" + "Thời gian hoạt động: " + arrayList.get(position).getTime()
+                    + "\n" + "Giá: " + arrayList.get(position).getPrice());
             holder.imgView.setImageResource(arrayList.get(position).getImg());
         }
     }
@@ -75,7 +74,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.viewHolder> {
         ImageView imgView;
         public viewHolder(final View itemView) {
             super(itemView);
-            tvName = (TextView) itemView.findViewById(R.id.tv_Text);
+            tvName = (TextView) itemView.findViewById(R.id.txtName);
             imgView = (ImageView) itemView.findViewById(R.id.img_View);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

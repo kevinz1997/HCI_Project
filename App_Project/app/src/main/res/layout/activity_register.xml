@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".RegisterActivity"
     android:orientation="vertical"
-    android:background="@drawable/hinhnenlogin"
+    android:background="@drawable/gradient"
     >
 
     <ScrollView
@@ -20,26 +20,36 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_gravity="center"
             android:layout_margin="10dp">
-            <Button
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Back"/>
+                android:text="Trở về"
+                android:textColor="#FFF1EDED"
+                android:textSize="20dp"
+                android:drawableLeft="@drawable/back3"
+                android:onClick="clickToBack"/>
             <TextView
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Register"
-                android:textSize="48dp"
+                android:text="Tạo Tài khoản"
+                android:textSize="35dp"
                 android:textColor="#FFF1EDED"
+                android:layout_marginTop="20dp"
                 />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Username: "
-                android:textColor="#FFF1EDED"
-                android:textSize="24dp"/>
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Username: "-->
+            <!--android:textColor="#FFF1EDED"-->
+            <!--android:textSize="24dp"/>-->
+        <LinearLayout
+            android:layout_marginBottom="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -47,27 +57,52 @@
                 android:imeOptions="actionUnspecified"
                 android:singleLine="true"
                 android:textColor="#FFF1EDED"
-                android:textSize="20dp"/>
-            <TextView
+                android:textSize="20dp"
+                android:hint="Tên đăng nhập"
+                android:textColorHint="#FFF1EDED"
+                android:layout_margin="5dp"
+                />
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="FullName: "-->
+                <!--android:textColor="#FFF1EDED"-->
+                <!--android:textSize="24dp"/>-->
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Phone Number: "
+                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeOptions="actionUnspecified"
+                android:singleLine="true"
                 android:textColor="#FFF1EDED"
-                android:textSize="24dp"/>
+                android:textSize="20dp"
+                android:hint="Tên Đầy đủ"
+                android:textColorHint="#FFF1EDED"
+                android:layout_margin="5dp"/>
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Phone Number: "-->
+                <!--android:textColor="#FFF1EDED"-->
+                <!--android:textSize="24dp"/>-->
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeOptions="actionUnspecified"
                 android:textColor="#FFF1EDED"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:hint="Số điện Thoại"
+                android:textColorHint="#FFF1EDED"
+                android:layout_margin="5dp"
                 />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Password: "
-                android:textColor="#FFF1EDED"
-                android:textSize="24dp"/>
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Password: "-->
+                <!--android:textColor="#FFF1EDED"-->
+                <!--android:textSize="24dp"/>-->
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -76,13 +111,17 @@
                 android:singleLine="true"
                 android:inputType="textPassword"
                 android:textColor="#FFF1EDED"
-                android:textSize="20dp"/>/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Cormfirm Password: "
-                android:textColor="#FFF1EDED"
-                android:textSize="24dp"/>
+                android:textSize="20dp"
+                android:hint="Mật khẩu"
+                android:textColorHint="#FFF1EDED"
+                android:layout_margin="5dp"
+                />
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Cormfirm Password: "-->
+                <!--android:textColor="#FFF1EDED"-->
+                <!--android:textSize="24dp"/>-->
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -91,15 +130,42 @@
                 android:singleLine="true"
                 android:inputType="textPassword"
                 android:textColor="#FFF1EDED"
-                android:textSize="20dp"/>/>
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Register"
-                android:background="#FF5933EC"
-                android:textColor="#FFF7F2F2"
-                android:textSize="24dp"
-                android:textStyle="bold"/>
+                android:textSize="20dp"
+                android:hint="Xác nhận mật khẩu"
+                android:textColorHint="#FFF1EDED"
+                />
+        </LinearLayout>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                app:cardCornerRadius="25dp"
+                android:layout_gravity="center"
+                app:cardBackgroundColor="#FF5933EC"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Đăng kí"
+                        android:background="#FF5933EC"
+                        android:textColor="#FFF7F2F2"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:onClick="clickToSaveForRegister"/>
+                    <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:text="Login"-->
+                    <!--android:textColor="#FFF7F2F2"-->
+                    <!--android:textSize="24sp"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:gravity="center"/>-->
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
 
         </LinearLayout>
     </ScrollView>

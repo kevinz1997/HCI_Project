@@ -15,7 +15,7 @@
         android:layout_toRightOf="@+id/img_View"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_Text"
+        android:id="@+id/txtName"
         android:textStyle="bold"
         android:textColor="#000"
         android:layout_marginTop="10dp"
@@ -27,13 +27,13 @@
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="117dp"
+        android:layout_marginTop="130dp"
         android:layout_marginRight="7dp"
         android:text="Đặt Sân"
         />
 
     <View
-        android:layout_marginTop="155dp"
+        android:layout_marginTop="170dp"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:background="#d3d3d3" />

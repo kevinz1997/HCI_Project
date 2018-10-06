@@ -9,6 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        resValue "string", "google_maps_api_key", "AIzaSyA-Y7zdilw8Mu0loJ5CR2yp7qMtnfuazoM"
     }
     buildTypes {
         release {
