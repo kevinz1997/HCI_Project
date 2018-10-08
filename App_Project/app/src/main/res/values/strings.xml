@@ -1,10 +1,9 @@
 <resources>
-    <string name="app_name">App_Project</string>
+    <string name="app_name">Sport Talk</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="data">Để có thể thuận tiện trong từng ứng dụng khác nhau thì chúng ta có thể tùy chỉnh theo ý muốn giả dụ như ở phần tổng quát ta sẽ đặt phía trên, phía dưới, bên phải tùy theo ý các bạn</string>
-    <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Tên Đăng Nhập</string>
@@ -24,4 +23,5 @@
     <string name="info">Thông tin cá nhân</string>
     <string name="history">Lịch sử đặt sân</string>
     <string name="logout">Đăng xuất</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
