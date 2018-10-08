@@ -8,13 +8,19 @@
     android:orientation="vertical"
     android:background="@drawable/gradient"
     >
-
+    <ProgressBar
+        android:id="@+id/register_progess"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_gravity="center"
+        android:visibility="gone" />
     <ScrollView
-    android:id="@+id/login_form"
+    android:id="@+id/register_form"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-
         <LinearLayout
             android:id="@+id/email_login_form"
             android:layout_width="match_parent"
@@ -38,12 +44,6 @@
                 android:textColor="#FFF1EDED"
                 android:layout_marginTop="20dp"
                 />
-            <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Username: "-->
-            <!--android:textColor="#FFF1EDED"-->
-            <!--android:textSize="24dp"/>-->
         <LinearLayout
             android:layout_marginBottom="40dp"
             android:layout_width="match_parent"
@@ -62,12 +62,6 @@
                 android:textColorHint="#FFF1EDED"
                 android:layout_margin="5dp"
                 />
-            <!--<TextView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="FullName: "-->
-                <!--android:textColor="#FFF1EDED"-->
-                <!--android:textSize="24dp"/>-->
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -76,15 +70,9 @@
                 android:singleLine="true"
                 android:textColor="#FFF1EDED"
                 android:textSize="20dp"
-                android:hint="Tên Đầy đủ"
+                android:hint="Tên đầy đủ"
                 android:textColorHint="#FFF1EDED"
                 android:layout_margin="5dp"/>
-            <!--<TextView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="Phone Number: "-->
-                <!--android:textColor="#FFF1EDED"-->
-                <!--android:textSize="24dp"/>-->
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -92,17 +80,10 @@
                 android:imeOptions="actionUnspecified"
                 android:textColor="#FFF1EDED"
                 android:textSize="20dp"
-                android:hint="Số điện Thoại"
+                android:hint="Số điện thoại"
                 android:textColorHint="#FFF1EDED"
                 android:layout_margin="5dp"
                 />
-
-            <!--<TextView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="Password: "-->
-                <!--android:textColor="#FFF1EDED"-->
-                <!--android:textSize="24dp"/>-->
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -116,12 +97,6 @@
                 android:textColorHint="#FFF1EDED"
                 android:layout_margin="5dp"
                 />
-            <!--<TextView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="Cormfirm Password: "-->
-                <!--android:textColor="#FFF1EDED"-->
-                <!--android:textSize="24dp"/>-->
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -154,18 +129,10 @@
                         android:textColor="#FFF7F2F2"
                         android:textSize="20dp"
                         android:textStyle="bold"
-                        android:onClick="clickToSaveForRegister"/>
-                    <!--<TextView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:text="Login"-->
-                    <!--android:textColor="#FFF7F2F2"-->
-                    <!--android:textSize="24sp"-->
-                    <!--android:textStyle="bold"-->
-                    <!--android:gravity="center"/>-->
+                        android:onClick="clickToSaveForRegister"
+                        />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
-
 
         </LinearLayout>
     </ScrollView>
