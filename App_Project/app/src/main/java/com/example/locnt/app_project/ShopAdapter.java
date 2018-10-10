@@ -2,6 +2,10 @@ package com.example.locnt.app_project;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.viewHolder> {
@@ -17,7 +22,9 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.viewHolder> {
     ArrayList<DataShop> arrayList;
     Context context;
     LayoutInflater inflater;
-    private class VIEW_TYPES{
+    private RecyclerView recyclerView;
+
+    private class VIEW_TYPES {
         public static final int Footer = 1;
         public static final int Normal = 2;
     }
@@ -40,15 +47,15 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.viewHolder> {
         switch (viewType) {
             case VIEW_TYPES.Normal:
                 isFooter = false;
-                itemview = LayoutInflater.from(parent.getContext()).inflate(R.layout.item,parent,false);
+                itemview = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
                 break;
             case VIEW_TYPES.Footer:
                 isFooter = true;
-                itemview = LayoutInflater.from(parent.getContext()).inflate(R.layout.footer,parent,false);
+                itemview = LayoutInflater.from(parent.getContext()).inflate(R.layout.footer, parent, false);
                 break;
             default:
                 isFooter = false;
-                itemview = LayoutInflater.from(parent.getContext()).inflate(R.layout.item,parent,false);
+                itemview = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
 
         }
         return new viewHolder(itemview);
@@ -57,8 +64,8 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.viewHolder> {
     @Override
     public void onBindViewHolder(viewHolder holder, int position) {
         if (!isFooter) {
-            holder.tvName.setText("Tên sân: " + arrayList.get(position).getName()+"\n" + "Địa chỉ: " + arrayList.get(position).getAddress()
-                    +"\n" + "SĐT: " + arrayList.get(position).getPhone()+ "\n" + "Thời gian hoạt động: " + arrayList.get(position).getTime()
+            holder.tvName.setText("Tên sân: " + arrayList.get(position).getName() + "\n" + "Địa chỉ: " + arrayList.get(position).getAddress()
+                    + "\n" + "SĐT: " + arrayList.get(position).getPhone() + "\n" + "Thời gian hoạt động: " + arrayList.get(position).getTime()
                     + "\n" + "Giá: " + arrayList.get(position).getPrice());
             holder.imgView.setImageResource(arrayList.get(position).getImg());
         }
@@ -72,6 +79,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.viewHolder> {
     public class viewHolder extends RecyclerView.ViewHolder {
         TextView tvName;
         ImageView imgView;
+
         public viewHolder(final View itemView) {
             super(itemView);
             tvName = (TextView) itemView.findViewById(R.id.txtName);
@@ -79,8 +87,13 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.viewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context,DetailActivity.class);
-                    intent.putExtra("item",arrayList.get(getAdapterPosition()).getName());
+                    if (getAdapterPosition() == (arrayList.size() - 1)) {
+                        return;
+                    }
+                    Intent intent = new Intent(context, DetailActivity.class);
+                    intent.putExtra("name", arrayList.get(getAdapterPosition()).getName());
+                    intent.putExtra("phone", arrayList.get(getAdapterPosition()).getPhone());
+                    intent.putExtra("addr", arrayList.get(getAdapterPosition()).getAddress());
                     context.startActivity(intent);
                 }
             });

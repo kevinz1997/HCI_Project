@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 
@@ -307,10 +308,17 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             if (success) {
+                SharedPreferences shared = getSharedPreferences("SportTalk",MODE_PRIVATE);
+                SharedPreferences.Editor editor = shared.edit();
+                editor.putBoolean("checkLogin", true);
+                editor.putString("username", mEmail);
+                editor.putString("password", mPassword);
+                editor.commit();
                 Intent in = new Intent(getApplicationContext(),MainActivity.class);
                 startActivity(in);
                 finish();
             } else {
+                showProgress(false);
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }

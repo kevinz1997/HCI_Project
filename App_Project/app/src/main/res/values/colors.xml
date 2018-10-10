@@ -3,6 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="duskYellow">#FFFF00</color>
-    <color name="lightGrey">#FFF</color>
+    <color name="duskYellow">#d3d3d3</color>
+    <color name="lightGrey">#FFFF00</color>
 </resources>
