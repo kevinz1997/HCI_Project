@@ -6,8 +6,8 @@
     <string name="data">Để có thể thuận tiện trong từng ứng dụng khác nhau thì chúng ta có thể tùy chỉnh theo ý muốn giả dụ như ở phần tổng quát ta sẽ đặt phía trên, phía dưới, bên phải tùy theo ý các bạn</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Username</string>
-    <string name="prompt_password">Password </string>
+    <string name="prompt_email">Tên Đăng Nhập</string>
+    <string name="prompt_password">Mật Khẩu </string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
