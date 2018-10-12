@@ -1,29 +1,22 @@
 package com.example.locnt.app_project;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity {
-    List<History> list = new ArrayList<History>();
-    Date currentTime = Calendar.getInstance().getTime();
+    private RecyclerView recyclerView;
+    private HistoryAdapter mAdapter;
+    private ArrayList<History> listHistory;
 
-    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-    String formattedDate = df.format(currentTime);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,69 +30,25 @@ public class HistoryActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        data();
-    }
+        recyclerView = findViewById(R.id.history_view);
+        listHistory = new ArrayList<>();
+        listHistory.add(new History("Sân bóng đá cỏ nhân tạo Đạt Đức","5A Nguyễn Văn Lượng, P16, Gò Vấp, TP HCM","15:30 - 18:00","12/10/2018",500000,R.drawable.datduc));
+        listHistory.add(new History("Trung tâm thể thao A2","Phan Thúc Duyện, Phường 4, Tân Bình, Hồ Chí Minh","8:00 - 10:00","10/10/2018",400000,R.drawable.a2));
+        listHistory.add(new History("Sân bóng đá cỏ nhân tạo Phương Nam","44/5 Phạm Văn Chiêu, P.9, Gò Vấp, TP HCM","20:00 - 22:00","08/10/2018",400000,R.drawable.phuongnam));
 
-    private void data() {
-        List<History> listHistory = getListData();
-        final ListView listView = findViewById(R.id.listView);
-        listView.setAdapter(new HistoryAdapter(listHistory,this));
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Object o = listView.getItemAtPosition(i);
-                History history = (History) o;
-                String date = ((History) o).getDate();
-                try {
-                    Date date1 = df.parse(date);
-                    Date date2 = df.parse(formattedDate);
-                    if (date1.after(date2)) {
-                        removeItemFromList(i,listView);
-                    } else {
-                        Toast.makeText(HistoryActivity.this, "past date: " + "current" + date1 +"<"+ date2, Toast.LENGTH_SHORT).show();
-                    }
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-//                Toast.makeText(HistoryActivity.this, "" + formattedDate, Toast.LENGTH_SHORT).show();
-                return false;
+        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
+        String name = shared.getString("position","DEFAULT");
+        for (int i = 0; i < listHistory.size(); i++) {
+            String full = listHistory.get(i).getName();
+            if (full.contains(name)) {
+                listHistory.remove(i);
+//                shared.edit().clear().commit();
             }
-        });
-    }
-
-    protected void removeItemFromList(int position,ListView listView) {
-        final Object o = listView.getItemAtPosition(position);
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
-        alert.setTitle("HỦY ĐẶT SÂN");
-        alert.setMessage("Bạn chắc chắn hủy đặt sân?");
-        alert.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                    list.remove(o);
-            }
-        });
-        alert.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        alert.show();
-
-    }
-
-    private  List<History> getListData() {
-        History dd = new History("Sân bóng đá cỏ nhân tạo Đạt Đức","5A Nguyễn Văn Lượng, P16, Gò Vấp, TP HCM","8:00 - 10:00", 400000,"12/10/2018");
-        History ct = new History("Sân bóng đá mini đường Cây Trâm","17/1D Cây Trâm, phường 9, quận Gò Vấp, Hồ Chí Minh","8:00 - 10:00", 400000,"12/10/2018");
-        History a2 = new History("Trung tâm thể thao A2","Phan Thúc Duyện, Phường 4, Tân Bình, Hồ Chí Minh","6:00 - 8:00", 400000,"10/10/2018");
-
-        list.add(dd);
-        list.add(ct);
-        list.add(a2);
-
-        return list;
+        }
+        mAdapter = new HistoryAdapter(listHistory,HistoryActivity.this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(mAdapter);
     }
 }

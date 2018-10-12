@@ -59,9 +59,12 @@ public class SearchFragment extends Fragment{
             String names = shopList.get(i).getName();
             if (names.toLowerCase().contains(name.toLowerCase())) {
                 newList.add(shopList.get(i));
-            } else {
-                txtResult.setVisibility(View.VISIBLE);
             }
+        }
+        if (newList.isEmpty()) {
+            txtResult.setVisibility(View.VISIBLE);
+        } else {
+            txtResult.setVisibility(View.GONE);
         }
         ShopAdapter shopAdapter = new ShopAdapter(newList,getContext());
         recyclerView.setAdapter(shopAdapter);

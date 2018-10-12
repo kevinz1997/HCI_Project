@@ -3,8 +3,15 @@ package com.example.locnt.app_project;
 
 import android.content.Context;
 import android.content.Intent;
+<<<<<<< HEAD
 
 import android.content.SharedPreferences;
+=======
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+
+>>>>>>> 5f4c5df8f456073f0361f0ce16b524544d787343
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;

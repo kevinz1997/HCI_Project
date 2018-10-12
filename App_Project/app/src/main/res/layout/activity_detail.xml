@@ -10,7 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:focusableInTouchMode="true"
         tools:context=".DetailActivity">
+
+        <TextView
+            android:id="@+id/txtDetailBack"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/back1"/>
 
         <ImageView
             android:id="@+id/imgDetail"
@@ -18,7 +27,7 @@
             android:layout_height="200dp"
             android:layout_gravity="center"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="15dp" />
 
@@ -164,10 +173,33 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="#000" />
+                    <Button
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center"
+                        android:textColor="#fff"
+                        android:background="@drawable/custom_divider"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:text="Đặt Sân"
+                        />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-
+        <View
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#d3d3d3" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
+            android:layout_marginBottom="20dp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:text="Đánh giá"/>
         <RatingBar
             android:id="@+id/ratingBar"
             android:layout_width="wrap_content"
@@ -184,6 +216,7 @@
             android:layout_marginTop="10dp"
             android:text="Rất thích"
             android:textSize="16sp"
+            android:textColor="#ff0000"
             android:textStyle="bold" />
 
         <EditText
@@ -198,15 +231,33 @@
             android:padding="5dp" />
 
         <Button
-            android:id="@+id/btnSubmit"
+            android:id="@+id/btnRate"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:textColor="#fff"
+            android:background="@drawable/custom_divider"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="#e57373"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:text="ĐÁNH GIÁ"
-            android:textColor="@android:color/white" />
+            android:layout_marginBottom="10dp"/>
+        <View
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#d3d3d3"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
+            android:layout_marginBottom="20dp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:text="XẾP HẠNG &#38; Đánh giá"/>
     </LinearLayout>
 </ScrollView>
