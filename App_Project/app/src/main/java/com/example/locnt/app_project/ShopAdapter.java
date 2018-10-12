@@ -87,8 +87,10 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.viewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (getAdapterPosition() == (arrayList.size() - 1)) {
-                        return;
+                    if (arrayList.get(arrayList.size() - 1).isFooter()) {
+                        if (getAdapterPosition() == (arrayList.size() - 1)) {
+                            return;
+                        }
                     }
                     Intent intent = new Intent(context, DetailActivity.class);
                     intent.putExtra("name", arrayList.get(getAdapterPosition()).getName());

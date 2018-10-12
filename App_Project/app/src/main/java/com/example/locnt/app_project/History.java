@@ -2,14 +2,23 @@ package com.example.locnt.app_project;
 
 public class History {
     private String name, addr, time, date;
-    private int price;
+    private int price,img;
 
-    public History(String name, String addr, String time, int price, String date) {
+    public History(String name, String addr, String time, String date, int price, int img) {
         this.name = name;
         this.addr = addr;
         this.time = time;
-        this.price = price;
         this.date = date;
+        this.price = price;
+        this.img = img;
+    }
+
+    public int getImg() {
+        return img;
+    }
+
+    public void setImg(int img) {
+        this.img = img;
     }
 
     public String getDate() {

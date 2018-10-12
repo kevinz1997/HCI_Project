@@ -29,13 +29,22 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         createView();
         rate();
+        TextView back = findViewById(R.id.txtDetailBack);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetailActivity.this,MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
     }
 
     private void rate() {
         mRatingBar = findViewById(R.id.ratingBar);
         mRatingScale = findViewById(R.id.txtRating);
         mFeedback = findViewById(R.id.edt);
-        mSendFeedback = findViewById(R.id.btnSubmit);
+        mSendFeedback = findViewById(R.id.btnRate);
         mRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
@@ -65,18 +74,14 @@ public class DetailActivity extends AppCompatActivity {
         mSendFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mFeedback.getText().toString().isEmpty()) {
-                    mSendFeedback.setEnabled(false);
-                } else {
-                    SharedPreferences pre = getSharedPreferences("feedback", MODE_PRIVATE);
-                    SharedPreferences.Editor edit = pre.edit();
-                    edit.putString("datafeedback",mFeedback.getText().toString());
-                    edit.putString("ratefeedback",mRatingScale.getText().toString());
-                    edit.commit();
+//                    SharedPreferences pre = getSharedPreferences("feedback", MODE_PRIVATE);
+//                    SharedPreferences.Editor edit = pre.edit();
+//                    edit.putString("datafeedback",mFeedback.getText().toString());
+//                    edit.putString("ratefeedback",mRatingScale.getText().toString());
+//                    edit.commit();
+                    Toast.makeText(DetailActivity.this, "Cảm ơn bạn đã đánh giá." + mFeedback.getText().toString(), Toast.LENGTH_SHORT).show();
                     mFeedback.setText("");
-                    mRatingBar.setRating(0);
-                    Toast.makeText(DetailActivity.this, "Cảm ơn bạn đã đánh giá.", Toast.LENGTH_SHORT).show();
-                }
+                    mRatingBar.setRating(5);
             }
         });
     }

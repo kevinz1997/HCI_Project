@@ -1,67 +1,124 @@
 package com.example.locnt.app_project;
 
+import android.app.AlertDialog;
 import android.content.Context;
-import android.util.Log;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
-public class HistoryAdapter extends BaseAdapter {
-    private List<History> listData;
-    private LayoutInflater layoutInflater;
+import static android.content.Context.MODE_PRIVATE;
+
+public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.viewHolder> {
+    private ArrayList<History> listData;
     private Context context;
 
-    public HistoryAdapter(List<History> listData, Context context) {
+    Date currentTime = Calendar.getInstance().getTime();
+    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+    String formattedDate = df.format(currentTime);
+
+    public HistoryAdapter(Context context) {
+        this.context = context;
+    }
+
+    public HistoryAdapter(ArrayList<History> listData, Context context) {
         this.listData = listData;
         this.context = context;
-        layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
-    public int getCount() {
+    public viewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+        View view = inflater.inflate(R.layout.item_list, viewGroup, false);
+        return new viewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(viewHolder holder, int position) {
+        String s = "Tên sân: " + listData.get(position).getName() + "\n" + "Địa chỉ: " + listData.get(position).getAddr()
+                + "\n" + "Ngày đặt sân: " + listData.get(position).getDate() + "\n" + "Giờ đặt sân: " + listData.get(position).getTime()
+                + "\n" + "Giá: " + listData.get(position).getPrice();
+
+        holder.tvName.setText(s);
+        holder.imgView.setImageResource(listData.get(position).getImg());
+    }
+
+    @Override
+    public int getItemCount() {
         return listData.size();
     }
 
-    @Override
-    public Object getItem(int i) {
-        return listData.get(i);
-    }
+    public class viewHolder extends RecyclerView.ViewHolder {
+        TextView tvName;
+        ImageView imgView;
 
-    @Override
-    public long getItemId(int i) {
-        return i;
-    }
+        public viewHolder(final View itemView) {
+            super(itemView);
+            tvName = itemView.findViewById(R.id.txtNameHistory);
+            imgView = itemView.findViewById(R.id.img_history);
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    String date = listData.get(getAdapterPosition()).getDate();
+                    try {
+                        Date date1 = df.parse(date);
+                        Date date2 = df.parse(formattedDate);
+                        if (date1.after(date2)) {
+                            removeItemFromList(getAdapterPosition());
+                            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+                            SharedPreferences.Editor editor = pref.edit();
+                            editor.putString("position",listData.get(getAdapterPosition()).getName());
+                            editor.commit();
+//                            Toast.makeText(, "past date: " + "current" + date1 +"<"+ date2, Toast.LENGTH_SHORT).show();
+                        } else {
+//                            Toast.makeText(context, "past date: " + "current" + date1 +"<"+ date2, Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
 
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        ViewHolder holder;
-        if (view == null) {
-            view = layoutInflater.inflate(R.layout.item_list, null);
-            holder = new ViewHolder();
-            holder.txtName = view.findViewById(R.id.txtNameList);
-            holder.txtAddr = view.findViewById(R.id.txtAddrList);
-            holder.txtDate = view.findViewById(R.id.txtDateList);
-            holder.txtTime = view.findViewById(R.id.txtTimeList);
-            holder.txtPrice = view.findViewById(R.id.txtPriceList);
-            view.setTag(holder);
-        } else {
-            holder = (ViewHolder) view.getTag();
+                    return false;
+                }
+            });
         }
-        History history = this.listData.get(i);
-        holder.txtName.setText("Tên sân: " + history.getName());
-        holder.txtAddr.setText("Địa chỉ: " + history.getAddr());
-        holder.txtDate.setText("Giờ đặt sân: " + history.getDate());
-        holder.txtTime.setText("Ngày đặt sân: " + history.getTime());
-        holder.txtPrice.setText("Giá: " + history.getPrice());
+    }
+    protected void removeItemFromList(final int position) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
 
-        return view;
+        alert.setTitle("HỦY ĐẶT SÂN");
+        alert.setMessage("Bạn chắc chắn hủy đặt sân?");
+        alert.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                removeAt(position);
+            }
+        });
+        alert.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        alert.show();
     }
 
-    static class ViewHolder {
-        TextView txtName,txtAddr,txtDate,txtTime,txtPrice;
+    public void removeAt(int position) {
+        listData.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, listData.size());
     }
 }

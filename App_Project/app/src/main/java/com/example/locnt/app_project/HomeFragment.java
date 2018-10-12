@@ -42,5 +42,4 @@ public class HomeFragment extends Fragment {
         shopList.add(shop);
         recyclerView.setAdapter(shopAdapter);
     }
-
 }
