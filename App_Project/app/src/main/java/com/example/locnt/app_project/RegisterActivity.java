@@ -1,9 +1,15 @@
 package com.example.locnt.app_project;
 
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
+
 
 public class RegisterActivity extends AppCompatActivity {
     private  View registerView;
@@ -18,9 +24,19 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     public void clickToSaveForRegister(View view) {
-        Toast.makeText(this,"Đăng Kí Thành Công", Toast.LENGTH_LONG).show();
-        showProgress(true);
+        new CountDownTimer(3000, 1000) {
 
+            @Override
+            public void onTick(long millisUntilFinished) {
+                showProgress(true);
+            }
+
+            @Override
+            public void onFinish() {
+                showProgress(false);
+            }
+        }.start();
+        Toast.makeText(this,"Đăng Kí Thành Công", Toast.LENGTH_LONG).show();
     }
 
     public void clickToBack(View view) {
