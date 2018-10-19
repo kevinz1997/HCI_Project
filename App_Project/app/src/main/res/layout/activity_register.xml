@@ -36,13 +36,15 @@
                 android:textColor="#FFF1EDED"
                 android:textSize="20dp"
                 android:drawableLeft="@drawable/back3"
-                android:onClick="clickToBack"/>
+                android:onClick="clickToBack"
+                android:layout_marginBottom="20dp"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_margin="10dp"
-                android:background="#800080"
+                android:background="#FFFAF2FA"
                 android:layout_marginTop="0dp">
             <TextView
                 android:layout_gravity="center"
@@ -50,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:text="Tạo Tài khoản"
                 android:textSize="35dp"
-                android:textColor="#FFF1EDED"
+                android:textColor="#000"
                 android:layout_marginTop="20dp"
                 />
         <LinearLayout
@@ -65,10 +67,10 @@
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeOptions="actionUnspecified"
                 android:singleLine="true"
-                android:textColor="#FFF1EDED"
+                android:textColor="#000"
                 android:textSize="20dp"
                 android:hint="Tên đăng nhập"
-                android:textColorHint="#FFF1EDED"
+                android:textColorHint="#FF747272"
                 android:layout_margin="5dp"
                 />
             <EditText
@@ -77,20 +79,20 @@
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeOptions="actionUnspecified"
                 android:singleLine="true"
-                android:textColor="#FFF1EDED"
+                android:textColor="#000"
                 android:textSize="20dp"
                 android:hint="Tên đầy đủ"
-                android:textColorHint="#FFF1EDED"
+                android:textColorHint="#FF747272"
                 android:layout_margin="5dp"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeOptions="actionUnspecified"
-                android:textColor="#FFF1EDED"
+                android:textColor="#000"
                 android:textSize="20dp"
                 android:hint="Số điện thoại"
-                android:textColorHint="#FFF1EDED"
+                android:textColorHint="#FF747272"
                 android:layout_margin="5dp"
                 />
             <EditText
@@ -100,10 +102,10 @@
                 android:imeOptions="actionUnspecified"
                 android:singleLine="true"
                 android:inputType="textPassword"
-                android:textColor="#FFF1EDED"
+                android:textColor="#000"
                 android:textSize="20dp"
                 android:hint="Mật khẩu"
-                android:textColorHint="#FFF1EDED"
+                android:textColorHint="#FF747272"
                 android:layout_margin="5dp"
                 />
             <EditText
@@ -113,10 +115,10 @@
                 android:imeOptions="actionUnspecified"
                 android:singleLine="true"
                 android:inputType="textPassword"
-                android:textColor="#FFF1EDED"
+                android:textColor="#000"
                 android:textSize="20dp"
                 android:hint="Xác nhận mật khẩu"
-                android:textColorHint="#FFF1EDED"
+                android:textColorHint="#FF747272"
                 />
         </LinearLayout>
 
@@ -125,7 +127,7 @@
                 android:layout_height="50dp"
                 app:cardCornerRadius="25dp"
                 android:layout_gravity="center"
-                app:cardBackgroundColor="#FF5933EC"
+                app:cardBackgroundColor="#FF20A128"
                 android:layout_marginBottom="20sp"
                 >
                 <LinearLayout
@@ -135,7 +137,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Đăng kí"
-                        android:background="#FF5933EC"
+                        android:background="#FF20A128"
                         android:textColor="#FFF7F2F2"
                         android:textSize="20dp"
                         android:textStyle="bold"
