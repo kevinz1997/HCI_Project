@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <SearchView
-        android:background="@drawable/edt_text_bg"
-        android:id="@+id/simpleSearchView"
-        android:iconifiedByDefault="false"
-        android:queryHint="Nhập tên sân"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"/>
+        android:weightSum="5"
+        android:layout_margin="5dp">
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:entries="@array/cityItems"></Spinner>
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:id="@+id/district"></Spinner>
+    </LinearLayout>
+    <Button
+        android:layout_gravity="center"
+        android:id="@+id/btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tìm sân"
+        android:textColor="#ffff"
+        android:background="@drawable/custom_divider"/>
     <TextView
         android:id="@+id/txtResult"
         android:layout_marginTop="10dp"

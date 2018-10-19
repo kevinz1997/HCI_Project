@@ -181,6 +181,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
                         android:text="Đặt Sân"
+                        android:onClick="clickToDetailBook"
                         />
                 </LinearLayout>
             </LinearLayout>

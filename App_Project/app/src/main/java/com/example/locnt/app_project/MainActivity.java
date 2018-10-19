@@ -147,4 +147,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(i);
         finish();
     }
+
+    public void clickToBook(View view) {
+        Intent intent = new Intent(this,BookActivity.class);
+        startActivity(intent);
+    }
 }

@@ -30,6 +30,7 @@
         android:layout_marginTop="130dp"
         android:layout_marginRight="7dp"
         android:text="Đặt Sân"
+        android:onClick="clickToBook"
         />
 
     <View
