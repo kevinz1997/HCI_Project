@@ -24,4 +24,10 @@
     <string name="history">Lịch sử đặt sân</string>
     <string name="logout">Đăng xuất</string>
     <string name="title_activity_maps">Map</string>
+    <string name="detail">
+       <u>Chi tiết</u>
+    </string>
+    <string name="priceTable">
+       <u>Bảng giá</u>
+    </string>
 </resources>
