@@ -2,10 +2,13 @@ package com.example.locnt.app_project;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -73,11 +76,13 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.viewHolder> {
     public class viewHolder extends RecyclerView.ViewHolder {
         TextView tvName;
         ImageView imgView;
+        Button btnHomeBook;
 
         public viewHolder(final View itemView) {
             super(itemView);
-            tvName = (TextView) itemView.findViewById(R.id.txtName);
-            imgView = (ImageView) itemView.findViewById(R.id.img_View);
+            tvName = itemView.findViewById(R.id.txtName);
+            imgView = itemView.findViewById(R.id.img_View);
+            btnHomeBook = itemView.findViewById(R.id.btnHomeBook);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -90,6 +95,14 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.viewHolder> {
                     intent.putExtra("name", arrayList.get(getAdapterPosition()).getName());
                     intent.putExtra("phone", arrayList.get(getAdapterPosition()).getPhone());
                     intent.putExtra("addr", arrayList.get(getAdapterPosition()).getAddress());
+                    context.startActivity(intent);
+                }
+            });
+            btnHomeBook.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, BookActivity.class);
+                    intent.putExtra("pitchName", arrayList.get(getAdapterPosition()).getName());
                     context.startActivity(intent);
                 }
             });

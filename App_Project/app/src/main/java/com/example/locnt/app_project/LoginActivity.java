@@ -3,11 +3,13 @@ package com.example.locnt.app_project;
 
 import android.content.Context;
 import android.content.Intent;
+
+
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
 
 import android.app.Activity;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,7 +19,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-
+import android.widget.Toast;
 
 
 /**
@@ -163,6 +165,7 @@ public class LoginActivity extends Activity  {
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
+            if(isNetworkOnline()){
             if (success) {
                 SharedPreferences shared = getSharedPreferences("SportTalk",MODE_PRIVATE);
                 SharedPreferences.Editor editor = shared.edit();
@@ -177,6 +180,9 @@ public class LoginActivity extends Activity  {
                 showProgress(false);
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
+            }} else {
+                showProgress(false);
+                Toast.makeText(LoginActivity.this, "Vui lòng kết nối mạng", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -185,6 +191,25 @@ public class LoginActivity extends Activity  {
             mAuthTask = null;
             showProgress(false);
         }
+    }
+
+    public boolean isNetworkOnline() {
+        boolean status=false;
+        try{
+            ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = cm.getNetworkInfo(0);
+            if (netInfo != null && netInfo.getState()==NetworkInfo.State.CONNECTED) {
+                status= true;
+            }else {
+                netInfo = cm.getNetworkInfo(1);
+                if(netInfo!=null && netInfo.getState()==NetworkInfo.State.CONNECTED)
+                    status= true;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return status;
     }
 }
 

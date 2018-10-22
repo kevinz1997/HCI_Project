@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void setNavigationViewListener() {
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -146,10 +146,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
         finish();
-    }
-
-    public void clickToBook(View view) {
-        Intent intent = new Intent(this,BookActivity.class);
-        startActivity(intent);
     }
 }

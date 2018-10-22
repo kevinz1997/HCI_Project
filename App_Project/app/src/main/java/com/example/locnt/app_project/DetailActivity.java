@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -92,10 +93,11 @@ public class DetailActivity extends AppCompatActivity {
         txtPhoneDetail = findViewById(R.id.txtPhoneDetail);
         txtAddrDetail = findViewById(R.id.txtAddrDetail);
         txtIntroDetail = findViewById(R.id.txtIntroDetail);
-        Intent intent = this.getIntent();
-        String name = intent.getStringExtra("name");
-        String phone = intent.getStringExtra("phone");
-        String addr = intent.getStringExtra("addr");
+//        Intent intent = this.getIntent();
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        String name = pref.getString("name","");
+        String phone = pref.getString("phone","");
+        String addr = pref.getString("addr","");
 //        Toast.makeText(this, name + "\n" + phone + "\n" + addr, Toast.LENGTH_LONG).show();
         if(name.contains("Trung tâm thể thao A2")) {
             imgDetail.setBackgroundResource(R.drawable.a2);
@@ -130,5 +132,11 @@ public class DetailActivity extends AppCompatActivity {
             txtAddrDetail.setText(addr);
             txtIntroDetail.setText("");
         }
+    }
+
+    public void clickToDetailBook(View view) {
+        Intent intent = new Intent(this,BookActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
