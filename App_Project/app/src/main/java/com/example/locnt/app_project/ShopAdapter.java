@@ -82,7 +82,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.viewHolder> {
             super(itemView);
             tvName = itemView.findViewById(R.id.txtName);
             imgView = itemView.findViewById(R.id.img_View);
-            btnHomeBook = itemView.findViewById(R.id.btnHomeBook);
+//            btnHomeBook = itemView.findViewById(R.id.btnHomeBook);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -98,14 +98,14 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.viewHolder> {
                     context.startActivity(intent);
                 }
             });
-            btnHomeBook.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, BookActivity.class);
-                    intent.putExtra("pitchName", arrayList.get(getAdapterPosition()).getName());
-                    context.startActivity(intent);
-                }
-            });
+//            btnHomeBook.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Intent intent = new Intent(context, BookActivity.class);
+//                    intent.putExtra("pitchName", arrayList.get(getAdapterPosition()).getName());
+//                    context.startActivity(intent);
+//                }
+//            });
         }
     }
 

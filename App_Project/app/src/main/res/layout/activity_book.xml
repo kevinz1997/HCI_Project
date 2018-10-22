@@ -44,15 +44,15 @@
                     android:text="@string/priceTable"
                     android:onClick="showPriceDetail"/>
 
-                <TextView
-                    android:id="@+id/txtDetail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="10dp"
-                    android:textSize="18dp"
-                    android:textColor="#0000ff"
-                    android:text="@string/detail" />
+                <!--<TextView-->
+                    <!--android:id="@+id/txtDetail"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:paddingLeft="10dp"-->
+                    <!--android:textSize="18dp"-->
+                    <!--android:textColor="#0000ff"-->
+                    <!--android:text="@string/detail" />-->
             </LinearLayout>
         </LinearLayout>
 

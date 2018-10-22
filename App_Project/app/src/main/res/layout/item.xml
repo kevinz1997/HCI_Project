@@ -21,16 +21,16 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"/>
 
-    <Button
-        android:id="@+id/btnHomeBook"
-        android:textColor="#fff"
-        android:background="@drawable/custom_divider"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="130dp"
-        android:layout_marginRight="7dp"
-        android:text="Đặt Sân"/>
+    <!--<Button-->
+        <!--android:id="@+id/btnHomeBook"-->
+        <!--android:textColor="#fff"-->
+        <!--android:background="@drawable/custom_divider"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="35dp"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_marginTop="130dp"-->
+        <!--android:layout_marginRight="7dp"-->
+        <!--android:text="Đặt Sân"/>-->
 
     <View
         android:layout_marginTop="170dp"
