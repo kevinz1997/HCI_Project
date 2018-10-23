@@ -18,6 +18,7 @@
         android:id="@+id/txtName"
         android:textStyle="bold"
         android:textColor="#000"
+        android:textSize="15dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"/>
 
@@ -33,7 +34,7 @@
         <!--android:text="Đặt Sân"/>-->
 
     <View
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="150dp"
         android:layout_width="fill_parent"
         android:layout_height="2dp"
         android:background="#d3d3d3" />

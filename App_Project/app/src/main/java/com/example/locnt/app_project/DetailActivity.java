@@ -93,6 +93,7 @@ public class DetailActivity extends AppCompatActivity {
         txtPhoneDetail = findViewById(R.id.txtPhoneDetail);
         txtAddrDetail = findViewById(R.id.txtAddrDetail);
         txtIntroDetail = findViewById(R.id.txtIntroDetail);
+        String introduce = "Trung tâm gồm 2 sân đa năng, 1 nhà thi đấu đa năng, 1 hồ bơi cao cấp, và 9 sân bóng đá mini (gồm 8 sân bóng 5 người và 1 sân bóng 7 người)." + "\n" + "\n" + "Sân bóng đá mini nhân tạo được trang bị mái che. Ngoài ra hệ thống đèn chiếu sáng đều đạt tiêu chuẩn hiện đại. Đảm bảo cho các cầu thủ, vận động viên thoải mái nhất và thí đấu tốt nhất, trong điều kiện tốt nhất.";
         Intent intent = this.getIntent();
 //        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         String name = intent.getStringExtra("name");
@@ -104,39 +105,37 @@ public class DetailActivity extends AppCompatActivity {
             txtNameDetail.setText(name);
             txtPhoneDetail.setText(phone);
             txtAddrDetail.setText(addr);
-            txtIntroDetail.setText("");
+            txtIntroDetail.setText(introduce);
         } else if(name.contains("Sân bóng đá cỏ nhân tạo Đạt Đức")) {
             imgDetail.setBackgroundResource(R.drawable.datduc);
             txtNameDetail.setText(name);
             txtPhoneDetail.setText(phone);
             txtAddrDetail.setText(addr);
-            txtIntroDetail.setText("");
+            txtIntroDetail.setText(introduce);
         } else if(name.contains("Sân bóng đá cỏ nhân tạo Phương Nam")) {
             imgDetail.setBackgroundResource(R.drawable.phuongnam);
             txtNameDetail.setText(name);
             txtPhoneDetail.setText(phone);
             txtAddrDetail.setText(addr);
-            txtIntroDetail.setText("BITI'S HUNTER X MIDNIGHT BLACK II - EXPERIENCE MIDNIGHT FREEDOM" +
-                    "CHIẾN BINH BÓNG BÓNG ĐÊM TRỞ LẠI - GIVEAWAY 3 ĐÔI GIÀY ĐẦU TIÊN CHO 3 FAN MAY MẮN" +
-                    "Sau sự kiện “cháy hàng” trong vòng chỉ 1 tuần ra mắt của thế hệ đầu, cơn sốt Midnight Black chính thức trở lại với thiết kế cá tính đầy khác biệt cùng đại sứ Thương hiệu Sơn Tùng M-TP, sẵn sàng cùng bạn trải nghiệm sự tự do phóng khoáng");
+            txtIntroDetail.setText(introduce);
         } else if(name.contains("Sân Bóng Trần Hưng Đạo")) {
             imgDetail.setBackgroundResource(R.drawable.thd);
             txtNameDetail.setText(name);
             txtPhoneDetail.setText(phone);
             txtAddrDetail.setText(addr);
-            txtIntroDetail.setText("");
+            txtIntroDetail.setText(introduce);
         } else if(name.contains("Sân bóng đá mini đường Cây Trâm")) {
             imgDetail.setBackgroundResource(R.drawable.caytram);
             txtNameDetail.setText(name);
             txtPhoneDetail.setText(phone);
             txtAddrDetail.setText(addr);
-            txtIntroDetail.setText("");
+            txtIntroDetail.setText(introduce);
         }
     }
 
     public void clickToDetailBook(View view) {
         Intent intent = new Intent(this,BookActivity.class);
+        intent.putExtra("name",txtNameDetail.getText().toString());
         startActivity(intent);
-        finish();
     }
 }

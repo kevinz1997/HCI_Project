@@ -137,13 +137,25 @@
                     android:layout_margin="10dp">
 
                 </Spinner>
-                <Spinner
-                    android:id="@+id/numberPitch"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="24dp"
-                    android:layout_margin="10dp">
+                    android:layout_height="25dp"
+                    android:layout_margin="10dp"
+                    android:weightSum="3">
+                    <Spinner
+                        android:id="@+id/numberPitch"
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp"
+                        android:layout_weight="1">
 
-                </Spinner>
+                    </Spinner>
+                    <TextView
+                        android:id="@+id/help"
+                        android:layout_width="80dp"
+                        android:layout_height="24dp"
+                        android:layout_weight="2"
+                        android:background="@drawable/help"/>
+                </LinearLayout>
                 <TextView
                     android:gravity="center"
                     android:id="@+id/txtTotal"
@@ -151,6 +163,7 @@
                     android:layout_height="25dp"
                     android:layout_margin="10dp"
                     android:text="1000000"
+                    android:textSize="20dp"
                     />
             </LinearLayout>
         </LinearLayout>
@@ -162,6 +175,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:background="#4ad92b"
+        android:textColor="#ffff"
         android:text="Đặt sân"/>
 
 </LinearLayout>
