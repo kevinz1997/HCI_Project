@@ -34,18 +34,18 @@ public class BookActivity extends AppCompatActivity {
         startHourSpinner = findViewById(R.id.startHour);
         endHourSpinner = findViewById(R.id.endHour);
         numberPitch = findViewById(R.id.numberPitch);
-        txtDetail = findViewById(R.id.txtDetail);
+        //txtDetail = findViewById(R.id.txtDetail);
         txtDate = findViewById(R.id.txtDate);
         txtPitchName = findViewById(R.id.txtPitchName);
 
-        txtDetail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(BookActivity.this, DetailActivity.class);
-                startActivity(intent);
-//                finish();
-            }
-        });
+//        txtDetail.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(BookActivity.this, DetailActivity.class);
+//                startActivity(intent);
+////                finish();
+//            }
+//        });
         txtDate.setText("Chọn ngày");
         txtDate.setOnClickListener(new View.OnClickListener() {
             @Override

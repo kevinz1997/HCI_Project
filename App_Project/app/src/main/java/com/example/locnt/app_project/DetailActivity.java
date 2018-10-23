@@ -93,11 +93,11 @@ public class DetailActivity extends AppCompatActivity {
         txtPhoneDetail = findViewById(R.id.txtPhoneDetail);
         txtAddrDetail = findViewById(R.id.txtAddrDetail);
         txtIntroDetail = findViewById(R.id.txtIntroDetail);
-//        Intent intent = this.getIntent();
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        String name = pref.getString("name","");
-        String phone = pref.getString("phone","");
-        String addr = pref.getString("addr","");
+        Intent intent = this.getIntent();
+//        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        String name = intent.getStringExtra("name");
+        String phone = intent.getStringExtra("phone");
+        String addr = intent.getStringExtra("addr");
 //        Toast.makeText(this, name + "\n" + phone + "\n" + addr, Toast.LENGTH_LONG).show();
         if(name.contains("Trung tâm thể thao A2")) {
             imgDetail.setBackgroundResource(R.drawable.a2);
