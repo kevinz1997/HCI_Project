@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -29,11 +30,15 @@ public class BookActivity extends AppCompatActivity {
     double start, end;
     int totalPrice = 0;
     String dateBook, startDate, endDate, pitchName;
+    private View progressView;
+    private View bookView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
+        progressView = findViewById(R.id.book_progess);
+        bookView = findViewById(R.id.bookView);
         startHourSpinner = findViewById(R.id.startHour);
         endHourSpinner = findViewById(R.id.endHour);
         numberPitch = findViewById(R.id.numberPitch);
@@ -277,6 +282,20 @@ public class BookActivity extends AppCompatActivity {
         alert.setPositiveButton("Xác nhận", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                new CountDownTimer(3000, 1000) {
+
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        showProgress(true);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        Toast.makeText(BookActivity.this, "Đặt sân thành công ", Toast.LENGTH_LONG).show();
+                        showProgress(false);
+                    }
+                }.start();
+
                 Intent intent = new Intent(BookActivity.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -290,7 +309,10 @@ public class BookActivity extends AppCompatActivity {
 
         alert.show();
     }
-
+    private void showProgress(boolean param) {
+        progressView.setVisibility(param ? View.VISIBLE : View.GONE);
+        bookView.setVisibility(param ? View.GONE : View.VISIBLE);
+    }
     private void chooseDate() {
         final Calendar calendar = Calendar.getInstance();
         int date = calendar.get(Calendar.DAY_OF_MONTH);

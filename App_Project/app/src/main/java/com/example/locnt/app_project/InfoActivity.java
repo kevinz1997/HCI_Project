@@ -22,5 +22,14 @@ public class InfoActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        TextView username = findViewById(R.id.txtUsername);
+        TextView name = findViewById(R.id.txtName);
+        TextView ho = findViewById(R.id.txtHo);
+        TextView phone = findViewById(R.id.txtPhone);
+        username.setText("username");
+        name.setText("tom");
+        ho.setText("chery");
+        phone.setText("0919876589");
+
     }
 }
