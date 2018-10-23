@@ -51,6 +51,8 @@ public class SearchFragment extends Fragment{
         "Quận Tân Phú","Quận Bình Tân","Quận Tân Bình","Huyện Nhà Bè","Huyện Bình Chánh","Huyện Hóc Môn","Huyện Củ Chi","Huyện Cần Giờ"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,data);
         district.setAdapter(adapter);
+        BookActivity b = new BookActivity();
+        b.popup(district);
         adapter.notifyDataSetChanged();
         btnSearch = view.findViewById(R.id.btnSearch);
         btnSearch.setOnClickListener(new View.OnClickListener() {
