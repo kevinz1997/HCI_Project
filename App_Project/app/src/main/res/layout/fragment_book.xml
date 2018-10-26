@@ -3,19 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/map"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-    <TextView
-        android:id="@+id/txtNetwork"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:gravity="center"
-        android:visibility="gone"
-        android:textSize="25dp"
-        android:textColor="#000000"
-        android:text="Please Connect Network To Open Map"/>
+    <!--<com.google.android.gms.maps.MapView-->
+        <!--android:id="@+id/map"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
 
 </RelativeLayout>

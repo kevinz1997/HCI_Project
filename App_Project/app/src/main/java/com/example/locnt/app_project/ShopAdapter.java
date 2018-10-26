@@ -61,9 +61,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.viewHolder> {
     @Override
     public void onBindViewHolder(viewHolder holder, int position) {
         if (!isFooter) {
-            holder.tvName.setText("Tên sân: " + arrayList.get(position).getName() + "\n" + "Địa chỉ: " + arrayList.get(position).getAddress()
-                    + "\n" + "SĐT: " + arrayList.get(position).getPhone() + "\n" + "Thời gian hoạt động: " + arrayList.get(position).getTime()
-                    + "\n" + "Giá: " + arrayList.get(position).getPrice());
+            holder.tvName.setText("Tên sân: " + arrayList.get(position).getName() + "\n" + "Địa chỉ: " + arrayList.get(position).getAddress());
             holder.imgView.setImageResource(arrayList.get(position).getImg());
         }
     }
