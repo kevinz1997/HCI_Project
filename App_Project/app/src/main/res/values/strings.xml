@@ -27,7 +27,7 @@
     <string name="detail">
        <u>Chi tiết</u>
     </string>
-    <string name="priceTable">
-       <u>Bảng giá chi tiết</u>
+    <string name="direction">
+       <u>Chỉ đường</u>
     </string>
 </resources>

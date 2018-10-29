@@ -60,7 +60,6 @@
                         android:paddingLeft="40dp"
                         android:textSize="18dp"
                         android:textColor="#0000ff"
-                        android:text="@string/priceTable"
                         android:onClick="showPriceDetail"/>
 
                     <!--<TextView-->

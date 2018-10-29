@@ -5,7 +5,9 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,6 +30,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -50,8 +53,11 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.lang.reflect.Field;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -59,8 +65,7 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener,
-        LocationListener, GoogleMap.OnMarkerClickListener {
+        GoogleApiClient.OnConnectionFailedListener,GoogleMap.OnMarkerClickListener {
 
     private DrawerLayout mDrawerLayout;
     private GoogleMap mMap;
@@ -69,14 +74,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private int PROXIMITY_RADIUS = 10000;
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
-    Marker mCurrLocationMarker, aMaker, bMarker, cMarker, dMarker;
+    Marker mCurrLocationMarker, aMarker, bMarker, cMarker, dMarker, currentMarker, eMarker, fMarker, gMarker, hMarker;
     LocationRequest mLocationRequest;
 
     ImageView imgMenu, imgSearch;
-    TextView txtDateMain, txtFragment;
+    TextView txtDateMain, txtFragment, txtDirection;
     Spinner spinnerDistrict, spinnerType, spinnerHour;
     LinearLayout layoutFilter;
-    BottomSheetBehavior sheetBehavior;
+    Button btnFilter;
+
+    private ArrayList<LatLng> listStep;
+    private PolylineOptions polyline;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,10 +121,50 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         imgSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(layoutFilter.getVisibility() == View.GONE) {
+                if (layoutFilter.getVisibility() == View.GONE) {
                     layoutFilter.setVisibility(View.VISIBLE);
                 } else {
                     layoutFilter.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        btnFilter = findViewById(R.id.btnFilter);
+        btnFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String item = (String) spinnerDistrict.getSelectedItem();
+                if (item.equals("Vị trí hiện tại")) {
+                    currentMarker.showInfoWindow();
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(10.8534, 106.6293)));
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+                } else {
+                    MarkerOptions marker1 = new MarkerOptions();
+                    marker1.position(new LatLng(10.7994987, 106.6510931));
+                    marker1.title("Sân Bóng Đá Lý Tự Trọng");
+                    marker1.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+
+                    MarkerOptions marker2 = new MarkerOptions();
+                    marker2.position(new LatLng(10.800363, 106.6442051));
+                    marker2.title("Sân Bóng Chảo Lửa");
+                    marker2.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+
+                    MarkerOptions marker3 = new MarkerOptions();
+                    marker3.position(new LatLng(10.8084684, 106.6282646));
+                    marker3.title("Sân bóng mini 20 Cộng Hòa");
+                    marker3.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+
+                    MarkerOptions marker4 = new MarkerOptions();
+                    marker4.position(new LatLng(10.8112646, 106.6299058));
+                    marker4.title("Sân bóng đá mini K334");
+                    marker4.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                    eMarker = mMap.addMarker(marker1);
+                    fMarker = mMap.addMarker(marker2);
+                    gMarker = mMap.addMarker(marker3);
+                    hMarker = mMap.addMarker(marker4);
+
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(10.8113, 106.6299)));
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
                 }
             }
         });
@@ -248,28 +296,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void addMarker() {
         MarkerOptions markerOptions1 = new MarkerOptions();
-        markerOptions1.position(new LatLng(10.8549547,106.6261285));
-        markerOptions1.title("Sân A");
+        markerOptions1.position(new LatLng(10.860665, 106.6263369));
+        markerOptions1.title("Sân Bóng Sài Gòn FC Quận 12");
         markerOptions1.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
 
         MarkerOptions markerOptions2 = new MarkerOptions();
-        markerOptions2.position(new LatLng(10.8552076,106.6290468));
-        markerOptions2.title("Sân B");
-        markerOptions2.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+        markerOptions2.position(new LatLng(10.8552076, 106.6290468));
+        markerOptions2.title("Sân bóng đá cỏ nhân tạo Đạt Đức");
+        markerOptions2.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
 
         MarkerOptions markerOptions3 = new MarkerOptions();
-        markerOptions3.position(new LatLng(10.8491383,106.6285747));
-        markerOptions3.title("Sân C");
+        markerOptions3.position(new LatLng(10.8491383, 106.6285747));
+        markerOptions3.title("Sân bóng đá cỏ nhân tạo Phương Nam");
         markerOptions3.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
 
         MarkerOptions markerOptions4 = new MarkerOptions();
-        markerOptions4.position(new LatLng(10.8509507,106.6270298));
-        markerOptions4.title("Sân C");
-        markerOptions4.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-        aMaker = mMap.addMarker(markerOptions1);
+        markerOptions4.position(new LatLng(10.8509507, 106.6270298));
+        markerOptions4.title("Sân Bóng Trần Hưng Đạo");
+        markerOptions4.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+        aMarker = mMap.addMarker(markerOptions1);
         bMarker = mMap.addMarker(markerOptions2);
         cMarker = mMap.addMarker(markerOptions3);
         dMarker = mMap.addMarker(markerOptions4);
+
+//        if (mLastLocation != null) {
+        MarkerOptions current = new MarkerOptions();
+        current.position(new LatLng(10.8534, 106.6293));
+        current.title("Vị trí hiện tại");
+        current.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+        currentMarker = mMap.addMarker(current);
+        currentMarker.showInfoWindow();
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(10.8534, 106.6293)));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+//        }
     }
 
     private void checkLogin() {
@@ -297,15 +356,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(1000);
-        mLocationRequest.setFastestInterval(1000);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-        }
+//        mLocationRequest = new LocationRequest();
+//        mLocationRequest.setInterval(1000);
+//        mLocationRequest.setFastestInterval(1000);
+//        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+//        if (ContextCompat.checkSelfPermission(this,
+//                Manifest.permission.ACCESS_FINE_LOCATION)
+//                == PackageManager.PERMISSION_GRANTED) {
+//            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, (LocationListener) this);
+//        }
     }
 
     @Override
@@ -317,36 +376,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        mLastLocation = location;
-        if (mCurrLocationMarker != null) {
-            mCurrLocationMarker.remove();
-        }
-
-        //Place current location marker
-        latitude = location.getLatitude();
-        longitude = location.getLongitude();
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        Toast.makeText(this, "lat: " + location.getLatitude() + "long: " + location.getLongitude(), Toast.LENGTH_SHORT).show();
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLng);
-        markerOptions.title("Vị trí hiện tại");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-        mCurrLocationMarker = mMap.addMarker(markerOptions);
-
-
-
-        //move map camera
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
-
-        //stop location updates
-        if (mGoogleApiClient != null) {
-            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-        }
-    }
+//
+//    @Override
+//    public void onLocationChanged(Location location) {
+//        mLastLocation = location;
+//        if (mCurrLocationMarker != null) {
+//            mCurrLocationMarker.remove();
+//        }
+//
+//        //Place current location marker
+//        latitude = location.getLatitude();
+//        longitude = location.getLongitude();
+//        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+//        Toast.makeText(this, "lat: " + location.getLatitude() + "long: " + location.getLongitude(), Toast.LENGTH_SHORT).show();
+//        MarkerOptions markerOptions = new MarkerOptions();
+//        markerOptions.position(latLng);
+//        markerOptions.title("Vị trí hiện tại");
+//        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+//        mCurrLocationMarker = mMap.addMarker(markerOptions);
+//
+//
+//        //move map camera
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+//        mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
+//
+//        //stop location updates
+//        if (mGoogleApiClient != null) {
+//            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+//        }
+//    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -442,28 +500,161 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        if (marker.equals(aMaker)) {
-            showBottomSheetDialog();
-            Toast.makeText(this, "this is san A", Toast.LENGTH_SHORT).show();
+        if (marker.equals(aMarker)) {
+//            txtDirection = findViewById(R.id.direction_bottom);
+//            txtDirection.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+                    direction(aMarker.getPosition(),true);
+//                }
+//            });
+            float[] results = new float[1];
+            Location.distanceBetween(currentMarker.getPosition().latitude, currentMarker.getPosition().longitude,
+                    aMarker.getPosition().latitude, aMarker.getPosition().longitude,
+                    results);
+            double distance = results[0];
+//            double distance = calculationByDistance(currentMarker.getPosition(), aMarker.getPosition());
+            showBottomSheetDialog(distance, aMarker.getTitle());
+//            Toast.makeText(this, "this is san A", Toast.LENGTH_SHORT).show();
             return true;
         } else if (marker.equals(bMarker)) {
-            showBottomSheetDialog();
-            Toast.makeText(this, "this is san B", Toast.LENGTH_SHORT).show();
+            float[] results = new float[1];
+            Location.distanceBetween(currentMarker.getPosition().latitude, currentMarker.getPosition().longitude,
+                    bMarker.getPosition().latitude, bMarker.getPosition().longitude,
+                    results);
+            double distance = results[0];
+//            double distance = calculationByDistance(currentMarker.getPosition(), bMarker.getPosition());
+            showBottomSheetDialog(distance, bMarker.getTitle());
+//            Toast.makeText(this, "this is san B", Toast.LENGTH_SHORT).show();
             return true;
         } else if (marker.equals(cMarker)) {
-            showBottomSheetDialog();
-            Toast.makeText(this, "this is san C", Toast.LENGTH_SHORT).show();
+            float[] results = new float[1];
+            Location.distanceBetween(currentMarker.getPosition().latitude, currentMarker.getPosition().longitude,
+                    cMarker.getPosition().latitude, cMarker.getPosition().longitude,
+                    results);
+            double distance = results[0];
+//            double distance = calculationByDistance(currentMarker.getPosition(), cMarker.getPosition());
+            showBottomSheetDialog(distance, cMarker.getTitle());
+//            Toast.makeText(this, "this is san C", Toast.LENGTH_SHORT).show();
             return true;
         } else if (marker.equals(dMarker)) {
-            showBottomSheetDialog();
-            Toast.makeText(this, "this is san D", Toast.LENGTH_SHORT).show();
+            float[] results = new float[1];
+            Location.distanceBetween(currentMarker.getPosition().latitude, currentMarker.getPosition().longitude,
+                    dMarker.getPosition().latitude, dMarker.getPosition().longitude,
+                    results);
+            double distance = results[0];
+//            double distance = calculationByDistance(currentMarker.getPosition(), dMarker.getPosition());
+            showBottomSheetDialog(distance, dMarker.getTitle());
+//            Toast.makeText(this, "this is san D", Toast.LENGTH_SHORT).show();
             return true;
         }
         return false;
     }
 
-    private void showBottomSheetDialog() {
+    private double calculationByDistance(LatLng StartP, LatLng EndP) {
+        int Radius = 6371;// radius of earth in Km
+        double lat1 = StartP.latitude;
+        double lat2 = EndP.latitude;
+        double lon1 = StartP.longitude;
+        double lon2 = EndP.longitude;
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                + Math.cos(Math.toRadians(lat1))
+                * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
+                * Math.sin(dLon / 2);
+        double c = 2 * Math.asin(Math.sqrt(a));
+        double valueResult = Radius * c;
+        double km = valueResult / 1;
+        DecimalFormat newFormat = new DecimalFormat("####");
+        int kmInDec = Integer.valueOf(newFormat.format(km));
+        double meter = valueResult % 1000;
+        int meterInDec = Integer.valueOf(newFormat.format(meter));
+        Log.i("Radius Value", "" + valueResult + "   KM  " + kmInDec
+                + " Meter   " + meterInDec);
+
+        return meter;
+    }
+
+    private void showBottomSheetDialog(double distance, String name) {
         BottomSheetFragment bottomSheetFragment = new BottomSheetFragment();
+        Bundle bundle = new Bundle();
+        bundle.putDouble("distance", distance);
+        bundle.putString("name", name);
+        bottomSheetFragment.setArguments(bundle);
         bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
+    }
+
+    private String makeURL (String sourcelat, String sourcelng, String destlat, String destlng ){
+        StringBuilder urlString = new StringBuilder();
+        urlString.append("https://maps.googleapis.com/maps/api/directions/json");
+        urlString.append("?origin=");// from
+        urlString.append(sourcelat);
+        urlString.append(",");
+        urlString.append(sourcelng);
+        urlString.append("&destination=");// to
+        urlString.append(destlat);
+        urlString.append(",");
+        urlString.append(destlng);
+        urlString.append("&key="+"AIzaSyDuX3ftH66X8b8ACwvYWUOezegfuZxrLJ4");
+        return urlString.toString();
+    }
+
+    private void direction(final LatLng latLngTest, boolean check) {
+        listStep = new ArrayList<LatLng>();
+        polyline = new PolylineOptions();
+
+
+        LatLng KHTN = new LatLng(10.762643, 106.682079);
+        LatLng PhoDiBoNguyenHue = new LatLng(10.774467, 106.703274);
+
+
+//        MarkerOptions option = new MarkerOptions();
+//        option.position(KHTN);
+//        option.title("Đại Học Khoa Học Tự Nhiên TP.HCM").snippet("Số 227 Nguyễn Văn Cừ, Quận 5");
+//        option.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+//        option.alpha(0.8f);
+//        option.rotation(0);
+//        Marker maker = map.addMarker(option);
+//        maker.showInfoWindow();
+//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(KHTN,17));
+
+//        MarkerOptions option2 = new MarkerOptions();
+//        option2.position(PhoDiBoNguyenHue);
+//        option2.title("Phố Đi Bộ Nguyễn Huệ").snippet("Quận 1 , TP.HCM");
+//        option2.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+//        option2.alpha(0.8f);
+//        option2.rotation(0);
+//        Marker maker2 = mMap.addMarker(option2);
+
+
+        final AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                String srcLat = String.valueOf(10.8534);
+                String srcLng = String.valueOf(106.6293);
+                String request = makeURL(srcLat, srcLng,String.valueOf(latLngTest.latitude),String.valueOf(latLngTest.longitude));
+                GetDirectionsTask task = new GetDirectionsTask(request);
+                ArrayList<LatLng> list = task.testDirection();
+                for (LatLng latLng : list) {
+                    listStep.add(latLng);
+                }
+                return null;
+            }
+            @Override
+            protected void onPostExecute(Void result) {
+                // TODO Auto-generated method stub
+                super.onPostExecute(result);
+                polyline.addAll(listStep);
+                Polyline line = mMap.addPolyline(polyline);
+                line.setColor(Color.BLUE);
+                line.setWidth(5);
+            }
+        };
+
+        if(check) {
+            task.execute();
+        }
     }
 }

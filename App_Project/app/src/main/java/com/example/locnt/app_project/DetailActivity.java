@@ -97,38 +97,38 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent = this.getIntent();
 //        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         String name = intent.getStringExtra("name");
-        String phone = intent.getStringExtra("phone");
-        String addr = intent.getStringExtra("addr");
+//        String phone = intent.getStringExtra("phone");
+//        String addr = intent.getStringExtra("addr");
 //        Toast.makeText(this, name + "\n" + phone + "\n" + addr, Toast.LENGTH_LONG).show();
         if(name.contains("Trung tâm thể thao A2")) {
             imgDetail.setBackgroundResource(R.drawable.a2);
             txtNameDetail.setText(name);
-            txtPhoneDetail.setText(phone);
-            txtAddrDetail.setText(addr);
+//            txtPhoneDetail.setText(phone);
+//            txtAddrDetail.setText(addr);
             txtIntroDetail.setText(introduce);
         } else if(name.contains("Sân bóng đá cỏ nhân tạo Đạt Đức")) {
             imgDetail.setBackgroundResource(R.drawable.datduc);
             txtNameDetail.setText(name);
-            txtPhoneDetail.setText(phone);
-            txtAddrDetail.setText(addr);
+//            txtPhoneDetail.setText(phone);
+//            txtAddrDetail.setText(addr);
             txtIntroDetail.setText(introduce);
         } else if(name.contains("Sân bóng đá cỏ nhân tạo Phương Nam")) {
             imgDetail.setBackgroundResource(R.drawable.phuongnam);
             txtNameDetail.setText(name);
-            txtPhoneDetail.setText(phone);
-            txtAddrDetail.setText(addr);
+//            txtPhoneDetail.setText(phone);
+//            txtAddrDetail.setText(addr);
             txtIntroDetail.setText(introduce);
         } else if(name.contains("Sân Bóng Trần Hưng Đạo")) {
             imgDetail.setBackgroundResource(R.drawable.thd);
             txtNameDetail.setText(name);
-            txtPhoneDetail.setText(phone);
-            txtAddrDetail.setText(addr);
+//            txtPhoneDetail.setText(phone);
+//            txtAddrDetail.setText(addr);
             txtIntroDetail.setText(introduce);
         } else if(name.contains("Sân bóng đá mini đường Cây Trâm")) {
             imgDetail.setBackgroundResource(R.drawable.caytram);
             txtNameDetail.setText(name);
-            txtPhoneDetail.setText(phone);
-            txtAddrDetail.setText(addr);
+//            txtPhoneDetail.setText(phone);
+//            txtAddrDetail.setText(addr);
             txtIntroDetail.setText(introduce);
         }
     }
