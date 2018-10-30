@@ -4,10 +4,14 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -48,30 +52,30 @@ public class BookActivity extends AppCompatActivity {
         Intent intent = this.getIntent();
         pitchName = intent.getStringExtra("name");
         txtPitchName.setText(pitchName);
-        help = findViewById(R.id.help);
-        help.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(BookActivity.this);
-                String type;
-                if(!pitchName.contains("A2")) {
-                    type = "Sân 5 người: 1, 2, 3" + "\n" + "Sân 7 người: 4, 5";
-                } else {
-                    type = "Sân 5 người: 1, 2, 3, 4, 5, 6, 7, 8" + "\n" + "Sân 7 người: 9";
-                }
-                alert.setCancelable(false);
-                alert.setTitle("Sân");
-                alert.setMessage(type);
-                alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-
-                alert.show();
-            }
-        });
+//        help = findViewById(R.id.help);
+//        help.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                AlertDialog.Builder alert = new AlertDialog.Builder(BookActivity.this);
+//                String type;
+//                if(!pitchName.contains("A2")) {
+//                    type = "Sân 5 người: 1, 2, 3" + "\n" + "Sân 7 người: 4, 5";
+//                } else {
+//                    type = "Sân 5 người: 1, 2, 3, 4, 5, 6, 7, 8" + "\n" + "Sân 7 người: 9";
+//                }
+//                alert.setCancelable(false);
+//                alert.setTitle("Sân");
+//                alert.setMessage(type);
+//                alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                    }
+//                });
+//
+//                alert.show();
+//            }
+//        });
         txtTotal = findViewById(R.id.txtTotal);
 //        txtDetail.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -111,15 +115,65 @@ public class BookActivity extends AppCompatActivity {
                 "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30",
                 "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30",
                 "21:00", "21:30", "22:00", "22:30", "23:00"};
-        String[] data2;
-        if(!pitchName.contains("A2")) {
-            data2  = new String[]{"1", "2", "3", "4", "5"};
-        } else {
-            data2  = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9"};
-        }
+        String[] data2 = {"5", "7", "11"};
+//        if(!pitchName.contains("A2")) {
+//            data2  = new String[]{"1", "2", "3", "4", "5"};
+//        } else {
+//            data2  = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9"};
+//        }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, data);
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, data1);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, data){
+            @Override
+            public boolean isEnabled(int position) {
+                if(position == 1 || position == 2 || position == 3)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView,ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position==1 || position == 2 || position == 3) {
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, data1){
+            @Override
+            public boolean isEnabled(int position) {
+                if(position == 0 || position == 1 )
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position==0 || position == 1) {
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, data2);
         startHourSpinner.setAdapter(adapter);
         popup(startHourSpinner);
@@ -278,7 +332,7 @@ public class BookActivity extends AppCompatActivity {
         alert.setCancelable(false);
         alert.setTitle("Thông tin đặt sân");
         alert.setMessage("Tên sân: " + name + "\n" + "Ngày: " + date + "\n" + "Giờ bắt đầu: " + start + "\n"
-                + "Giờ kết thúc: " + end + "\n" + "Sân số: " + number + "\n" + "Tổng tiền: " + total);
+                + "Giờ kết thúc: " + end + "\n" + "Loại sân: " + number + "\n" + "Tổng tiền: " + total);
         alert.setPositiveButton("Xác nhận", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

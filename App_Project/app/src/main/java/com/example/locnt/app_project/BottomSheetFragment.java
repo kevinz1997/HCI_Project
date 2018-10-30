@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class BottomSheetFragment extends BottomSheetDialogFragment {
 
-    TextView txtDistance, txtNameBottom, txtPriceBottom, txtAddrBottom, txtPhoneBottom, txtDetailBottom;
+    TextView txtDistance, txtNameBottom, txtPriceBottom, txtAddrBottom, txtPhoneBottom, txtDetailBottom, txtDirection;
     Button btnBottom;
 
     public BottomSheetFragment() {
@@ -34,11 +34,17 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         txtAddrBottom = view.findViewById(R.id.address_bottom);
         txtPriceBottom = view.findViewById(R.id.price_bottom);
         txtPhoneBottom = view.findViewById(R.id.phone_bottom);
-        btnBottom = view.findViewById(R.id.btnBookBottom);
+//        btnBottom = view.findViewById(R.id.btnBookBottom);
         txtDetailBottom = view.findViewById(R.id.detail_bottom);
+        txtDirection = view.findViewById(R.id.direction_bottom);
+        txtDirection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
 
         Bundle bundle = getArguments();
-        int distance = (int) bundle.getDouble("distance");
         final String name = bundle.getString("name");
         txtNameBottom.setText(name);
 
@@ -57,21 +63,17 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         } else if (name.contains("Sân bóng đá cỏ nhân tạo Đạt Đức")) {
             txtAddrBottom.setText("Unnamed Road, Tân Hưng Thuận, Quận 12, Hồ Chí Minh, Việt Nam");
             txtPhoneBottom.setText("08 3589 5720");
-            btnBottom.setEnabled(false);
+//            btnBottom.setEnabled(false);
         } else if (name.contains("Sân bóng đá cỏ nhân tạo Phương Nam")) {
             txtAddrBottom.setText("Đông Hưng Thuận, Quận 12, Hồ Chí Minh, Việt Nam");
             txtPhoneBottom.setText("08 2214 9048");
         } else {
             txtAddrBottom.setText("Unnamed Road, Trung Mỹ Tây, Quận 12, Hồ Chí Minh, Việt Nam");
             txtPhoneBottom.setText("08 3984 9476");
-            btnBottom.setEnabled(false);
+//            btnBottom.setEnabled(false);
         }
         txtPriceBottom.setText("200.000 VNĐ/h");
-        if (distance*0.001 >= 1) {
-            txtDistance.setText(distance * 0.001 + " km");
-        } else {
-            txtDistance.setText(distance + " m");
-        }
+        txtDistance.setText(5 + " km");
         // Inflate the layout for this fragment
         return view;
     }

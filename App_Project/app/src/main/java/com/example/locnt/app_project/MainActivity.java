@@ -72,7 +72,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener,GoogleMap.OnMarkerClickListener {
+        GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMarkerClickListener {
 
     private DrawerLayout mDrawerLayout;
     private GoogleMap mMap;
@@ -89,9 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Spinner spinnerDistrict, spinnerType, spinnerHour;
     LinearLayout layoutFilter;
     Button btnFilter;
-
-    private ArrayList<LatLng> listStep;
-    private PolylineOptions polyline;
+    Double distanceRoute = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +106,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
-
                         return true;
                     }
                 });
@@ -333,12 +330,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 //        if (mLastLocation != null) {
         MarkerOptions current = new MarkerOptions();
-        current.position(new LatLng(10.852939,106.629545));
+        current.position(new LatLng(10.852939, 106.629545));
         current.title("Vị trí hiện tại");
         current.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
         currentMarker = mMap.addMarker(current);
         currentMarker.showInfoWindow();
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(10.852939,106.629545)));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(10.852939, 106.629545)));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
 //        }
     }
@@ -512,10 +509,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        LatLng point = new LatLng(marker.getPosition().latitude, marker.getPosition().longitude);
-        String url = getDirectionsUrl(currentMarker.getPosition(), point);
-        DownloadDirectionData task = new DownloadDirectionData();
-        task.execute(url);
+        if (!marker.getTitle().equals("Vị trí hiện tại")) {
+            LatLng point = new LatLng(marker.getPosition().latitude, marker.getPosition().longitude);
+            String url = getDirectionsUrl(currentMarker.getPosition(), point);
+            mMap.clear();
+            addMarker();
+            DownloadDirectionData task = new DownloadDirectionData();
+            task.execute(url);
+            showBottomSheetDialog(marker.getTitle());
+        }
         return true;
     }
 
@@ -524,7 +526,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
         String sensor = "sensor=false";
         String parameters = str_origin + "&" + str_dest + "&" + sensor;
-        String key = "AIzaSyB37v3NdRfOSZY_1dil2egmKYbUWFekiVE";
+        String key = "AIzaSyD6AKWLKmTVKe3bQYTU1Txl-baLpXrjhSg";
         String url = "https://maps.googleapis.com/maps/api/directions/json?" + parameters + "&key=" + key;
 
         return url;
@@ -582,7 +584,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         @Override
         protected void onPostExecute(String result) {
-            super.onPostExecute(result);;
+            super.onPostExecute(result);
             try {
                 JSONObject jsonObject = new JSONObject(result);
                 drawPolygon(jsonObject);
@@ -596,7 +598,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         JSONArray jRoute, jLeg, jStep;
         List<String> polylineList = new ArrayList<>();
         String distance = "";
-
         try {
             if (result.getString("status").equalsIgnoreCase("OK")) {
                 jRoute = result.getJSONArray("routes");
@@ -611,16 +612,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         }
                     }
                 }
-
                 for (int i = 0; i < polylineList.size(); i++) {
                     PolylineOptions options = new PolylineOptions();
-                    options.color(Color.RED);
-                    options.width(7);
+                    options.color(Color.BLUE);
+                    options.width(10);
                     options.addAll(PolyUtil.decode(polylineList.get(i)));
                     mMap.addPolyline(options);
                 }
 
-                Toast.makeText(getApplicationContext(), "Distance: " + distance, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Distance: " + distance.substring(0, distance.length() - 2).trim(), Toast.LENGTH_LONG).show();
+                distanceRoute = Double.parseDouble(distance.substring(0, distance.length() - 2).trim());
             } else if (result.getString("status").equalsIgnoreCase("ZERO_RESULTS")) {
                 Toast.makeText(getApplicationContext(), "No Result", Toast.LENGTH_SHORT).show();
             } else if (result.getString("status").equalsIgnoreCase("OVER_QUERY_LIMIT")) {
@@ -658,10 +659,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return meter;
     }
 
-    private void showBottomSheetDialog(double distance, String name) {
+    private void showBottomSheetDialog(String name) {
         BottomSheetFragment bottomSheetFragment = new BottomSheetFragment();
         Bundle bundle = new Bundle();
-        bundle.putDouble("distance", distance);
         bundle.putString("name", name);
         bottomSheetFragment.setArguments(bundle);
         bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
