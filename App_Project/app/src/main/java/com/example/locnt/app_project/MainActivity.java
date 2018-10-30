@@ -48,6 +48,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+
+import com.google.maps.android.PolyUtil;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -225,6 +230,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             case R.id.nav_history: {
                 Intent intent = new Intent(this, HistoryActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.nav_booking: {
+                Intent intent = new Intent(this, BookingActivity.class);
                 startActivity(intent);
                 break;
             }
@@ -502,88 +512,125 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        if (marker.equals(aMarker)) {
-            float[] results = new float[1];
-            Location.distanceBetween(currentMarker.getPosition().latitude, currentMarker.getPosition().longitude,
-                    aMarker.getPosition().latitude, aMarker.getPosition().longitude,
-                    results);
-            double distance = results[0];
-//            double distance = calculationByDistance(currentMarker.getPosition(), aMarker.getPosition());
-            showBottomSheetDialog(distance, aMarker.getTitle());
-//            Toast.makeText(this, "this is san A", Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (marker.equals(bMarker)) {
-            float[] results = new float[1];
-            Location.distanceBetween(currentMarker.getPosition().latitude, currentMarker.getPosition().longitude,
-                    bMarker.getPosition().latitude, bMarker.getPosition().longitude,
-                    results);
-            double distance = results[0];
-//            double distance = calculationByDistance(currentMarker.getPosition(), bMarker.getPosition());
-            showBottomSheetDialog(distance, bMarker.getTitle());
-//            Toast.makeText(this, "this is san B", Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (marker.equals(cMarker)) {
-            float[] results = new float[1];
-            Location.distanceBetween(currentMarker.getPosition().latitude, currentMarker.getPosition().longitude,
-                    cMarker.getPosition().latitude, cMarker.getPosition().longitude,
-                    results);
-            double distance = results[0];
-//            double distance = calculationByDistance(currentMarker.getPosition(), cMarker.getPosition());
-            showBottomSheetDialog(distance, cMarker.getTitle());
-//            Toast.makeText(this, "this is san C", Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (marker.equals(dMarker)) {
-            float[] results = new float[1];
-            Location.distanceBetween(currentMarker.getPosition().latitude, currentMarker.getPosition().longitude,
-                    dMarker.getPosition().latitude, dMarker.getPosition().longitude,
-                    results);
-            double distance = results[0];
-//            double distance = calculationByDistance(currentMarker.getPosition(), dMarker.getPosition());
-            showBottomSheetDialog(distance, dMarker.getTitle());
-//            Toast.makeText(this, "this is san D", Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (marker.equals(eMarker)) {
-            float[] results = new float[1];
-            Location.distanceBetween(currentMarker.getPosition().latitude, currentMarker.getPosition().longitude,
-                    eMarker.getPosition().latitude, eMarker.getPosition().longitude,
-                    results);
-            double distance = results[0];
-//            double distance = calculationByDistance(currentMarker.getPosition(), dMarker.getPosition());
-            showBottomSheetDialog(distance, eMarker.getTitle());
-//            Toast.makeText(this, "this is san D", Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (marker.equals(fMarker)) {
-            float[] results = new float[1];
-            Location.distanceBetween(currentMarker.getPosition().latitude, currentMarker.getPosition().longitude,
-                    fMarker.getPosition().latitude, fMarker.getPosition().longitude,
-                    results);
-            double distance = results[0];
-//            double distance = calculationByDistance(currentMarker.getPosition(), dMarker.getPosition());
-            showBottomSheetDialog(distance, fMarker.getTitle());
-//            Toast.makeText(this, "this is san D", Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (marker.equals(gMarker)) {
-            float[] results = new float[1];
-            Location.distanceBetween(currentMarker.getPosition().latitude, currentMarker.getPosition().longitude,
-                    gMarker.getPosition().latitude, gMarker.getPosition().longitude,
-                    results);
-            double distance = results[0];
-//            double distance = calculationByDistance(currentMarker.getPosition(), dMarker.getPosition());
-            showBottomSheetDialog(distance, gMarker.getTitle());
-//            Toast.makeText(this, "this is san D", Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (marker.equals(hMarker)) {
-            float[] results = new float[1];
-            Location.distanceBetween(currentMarker.getPosition().latitude, currentMarker.getPosition().longitude,
-                    hMarker.getPosition().latitude, hMarker.getPosition().longitude,
-                    results);
-            double distance = results[0];
-//            double distance = calculationByDistance(currentMarker.getPosition(), dMarker.getPosition());
-            showBottomSheetDialog(distance, hMarker.getTitle());
-//            Toast.makeText(this, "this is san D", Toast.LENGTH_SHORT).show();
-            return true;
+        LatLng point = new LatLng(marker.getPosition().latitude, marker.getPosition().longitude);
+        String url = getDirectionsUrl(currentMarker.getPosition(), point);
+        DownloadDirectionData task = new DownloadDirectionData();
+        task.execute(url);
+        return true;
+    }
+
+    private String getDirectionsUrl(LatLng origin, LatLng dest) {
+        String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
+        String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
+        String sensor = "sensor=false";
+        String parameters = str_origin + "&" + str_dest + "&" + sensor;
+        String key = "AIzaSyB37v3NdRfOSZY_1dil2egmKYbUWFekiVE";
+        String url = "https://maps.googleapis.com/maps/api/directions/json?" + parameters + "&key=" + key;
+
+        return url;
+    }
+
+    private String downloadUrl(String strUrl) throws IOException {
+        String data = "";
+        HttpURLConnection urlConnection = null;
+        InputStream iStream = null;
+        BufferedReader br = null;
+        try {
+            URL url = new URL(strUrl);
+
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.connect();
+
+            iStream = urlConnection.getInputStream();
+            br = new BufferedReader(new InputStreamReader(iStream));
+            StringBuffer sb = new StringBuffer();
+
+            String line = "";
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+
+            data = sb.toString();
+
+            br.close();
+
+        } catch (Exception e) {
+            Log.d("Exception download url", e.toString());
+        } finally {
+            if (br != null)
+                br.close();
+            if (iStream != null)
+                iStream.close();
+            if (urlConnection != null) ;
+            urlConnection.disconnect();
         }
-        return false;
+        return data;
+    }
+
+    private class DownloadDirectionData extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... url) {
+            String data = "";
+            try {
+                data = downloadUrl(url[0]);
+            } catch (Exception e) {
+                Log.d("Background Task", e.toString());
+            }
+            return data;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);;
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+                drawPolygon(jsonObject);
+            } catch (JSONException e) {
+                Log.d("Background Task", e.toString());
+            }
+        }
+    }
+
+    private void drawPolygon(JSONObject result) {
+        JSONArray jRoute, jLeg, jStep;
+        List<String> polylineList = new ArrayList<>();
+        String distance = "";
+
+        try {
+            if (result.getString("status").equalsIgnoreCase("OK")) {
+                jRoute = result.getJSONArray("routes");
+                for (int i = 0; i < jRoute.length(); i++) {
+                    jLeg = jRoute.getJSONObject(i).getJSONArray("legs");
+                    for (int j = 0; j < jLeg.length(); j++) {
+                        distance = jLeg.getJSONObject(j).getJSONObject("distance").getString("text");
+                        jStep = jLeg.getJSONObject(j).getJSONArray("steps");
+                        for (int k = 0; k < jStep.length(); k++) {
+                            String polyline = jStep.getJSONObject(k).getJSONObject("polyline").getString("points");
+                            polylineList.add(polyline);
+                        }
+                    }
+                }
+
+                for (int i = 0; i < polylineList.size(); i++) {
+                    PolylineOptions options = new PolylineOptions();
+                    options.color(Color.RED);
+                    options.width(7);
+                    options.addAll(PolyUtil.decode(polylineList.get(i)));
+                    mMap.addPolyline(options);
+                }
+
+                Toast.makeText(getApplicationContext(), "Distance: " + distance, Toast.LENGTH_LONG).show();
+            } else if (result.getString("status").equalsIgnoreCase("ZERO_RESULTS")) {
+                Toast.makeText(getApplicationContext(), "No Result", Toast.LENGTH_SHORT).show();
+            } else if (result.getString("status").equalsIgnoreCase("OVER_QUERY_LIMIT")) {
+                Toast.makeText(getApplicationContext(), "Query Limit", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+            }
+        } catch (JSONException e) {
+            Log.e("Direction Error", e.getMessage());
+        }
     }
 
     private double calculationByDistance(LatLng StartP, LatLng EndP) {

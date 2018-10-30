@@ -35,16 +35,16 @@ public class HistoryActivity extends AppCompatActivity {
         listHistory.add(new History("Sân bóng đá cỏ nhân tạo Đạt Đức","5A Nguyễn Văn Lượng, P16, Gò Vấp, TP HCM","15:30 - 18:00","12/10/2018",500000,R.drawable.datduc));
         listHistory.add(new History("Trung tâm thể thao A2","Phan Thúc Duyện, Phường 4, Tân Bình, Hồ Chí Minh","8:00 - 10:00","10/10/2018",400000,R.drawable.a2));
         listHistory.add(new History("Sân bóng đá cỏ nhân tạo Phương Nam","44/5 Phạm Văn Chiêu, P.9, Gò Vấp, TP HCM","20:00 - 22:00","08/10/2018",400000,R.drawable.phuongnam));
-
-        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
-        String name = shared.getString("position","DEFAULT");
-        for (int i = 0; i < listHistory.size(); i++) {
-            String full = listHistory.get(i).getName();
-            if (full.contains(name)) {
-                listHistory.remove(i);
-//                shared.edit().clear().commit();
-            }
-        }
+//
+//        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
+//        String name = shared.getString("position","DEFAULT");
+//        for (int i = 0; i < listHistory.size(); i++) {
+//            String full = listHistory.get(i).getName();
+//            if (full.contains(name)) {
+//                listHistory.remove(i);
+////                shared.edit().clear().commit();
+//            }
+//        }
         mAdapter = new HistoryAdapter(listHistory,HistoryActivity.this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
