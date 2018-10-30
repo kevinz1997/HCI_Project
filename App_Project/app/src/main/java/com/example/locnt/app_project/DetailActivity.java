@@ -19,12 +19,13 @@ import android.widget.Toast;
 
 public class DetailActivity extends AppCompatActivity {
 
-    RatingBar mRatingBar;
+    RatingBar mRatingBar, smallRatingBar, smallRatingBar1, smallRatingBar2;
     TextView mRatingScale;
     EditText mFeedback;
     Button mSendFeedback;
     ImageView imgDetail;
-    TextView txtNameDetail,txtPhoneDetail,txtAddrDetail,txtIntroDetail;
+    TextView txtNameDetail, txtPhoneDetail, txtAddrDetail, txtIntroDetail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,12 +34,21 @@ public class DetailActivity extends AppCompatActivity {
         mRatingBar = findViewById(R.id.ratingBar);
         LayerDrawable stars = (LayerDrawable) mRatingBar.getProgressDrawable();
         stars.getDrawable(2).setColorFilter(ContextCompat.getColor(this, R.color.lightGrey), PorterDuff.Mode.SRC_ATOP);
+        smallRatingBar = findViewById(R.id.smallRatingBar);
+        LayerDrawable star = (LayerDrawable) smallRatingBar.getProgressDrawable();
+        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(this, R.color.lightGrey), PorterDuff.Mode.SRC_ATOP);
+        smallRatingBar1 = findViewById(R.id.smallRatingBar1);
+        LayerDrawable star1 = (LayerDrawable) smallRatingBar1.getProgressDrawable();
+        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(this, R.color.lightGrey), PorterDuff.Mode.SRC_ATOP);
+        smallRatingBar2 = findViewById(R.id.smallRatingBar2);
+        LayerDrawable star2 = (LayerDrawable) smallRatingBar2.getProgressDrawable();
+        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(this, R.color.lightGrey), PorterDuff.Mode.SRC_ATOP);
         rate();
         TextView back = findViewById(R.id.txtDetailBack);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DetailActivity.this,MainActivity.class);
+                Intent intent = new Intent(DetailActivity.this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
@@ -83,9 +93,9 @@ public class DetailActivity extends AppCompatActivity {
 //                    edit.putString("datafeedback",mFeedback.getText().toString());
 //                    edit.putString("ratefeedback",mRatingScale.getText().toString());
 //                    edit.commit();
-                    Toast.makeText(DetailActivity.this, "Cảm ơn bạn đã đánh giá." + mFeedback.getText().toString(), Toast.LENGTH_SHORT).show();
-                    mFeedback.setText("");
-                    mRatingBar.setRating(5);
+                Toast.makeText(DetailActivity.this, "Cảm ơn bạn đã đánh giá." + mFeedback.getText().toString(), Toast.LENGTH_SHORT).show();
+                mFeedback.setText("");
+                mRatingBar.setRating(5);
             }
         });
     }
@@ -100,45 +110,45 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent = this.getIntent();
 //        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         String name = intent.getStringExtra("name");
-//        String phone = intent.getStringExtra("phone");
-//        String addr = intent.getStringExtra("addr");
 //        Toast.makeText(this, name + "\n" + phone + "\n" + addr, Toast.LENGTH_LONG).show();
-        if(name.contains("Trung tâm thể thao A2")) {
+        if (name.contains("Trung tâm thể thao A2")) {
             imgDetail.setBackgroundResource(R.drawable.a2);
             txtNameDetail.setText(name);
-//            txtPhoneDetail.setText(phone);
-//            txtAddrDetail.setText(addr);
-            txtIntroDetail.setText(introduce);
-        } else if(name.contains("Sân bóng đá cỏ nhân tạo Đạt Đức")) {
+            txtPhoneDetail.setText("0120 304 0506");
+            txtAddrDetail.setText("Phan Thúc Duyện, Phường 4, Tân Bình, Hồ Chí Minh");
+        } else if (name.contains("Sân bóng đá cỏ nhân tạo Đạt Đức")) {
             imgDetail.setBackgroundResource(R.drawable.datduc);
             txtNameDetail.setText(name);
-//            txtPhoneDetail.setText(phone);
-//            txtAddrDetail.setText(addr);
-            txtIntroDetail.setText(introduce);
-        } else if(name.contains("Sân bóng đá cỏ nhân tạo Phương Nam")) {
+            txtPhoneDetail.setText("08 3589 5720");
+            txtAddrDetail.setText("5A Nguyễn Văn Lượng, P16, Gò Vấp, TP HCM");
+        } else if (name.contains("Sân bóng đá cỏ nhân tạo Phương Nam")) {
             imgDetail.setBackgroundResource(R.drawable.phuongnam);
             txtNameDetail.setText(name);
-//            txtPhoneDetail.setText(phone);
-//            txtAddrDetail.setText(addr);
-            txtIntroDetail.setText(introduce);
-        } else if(name.contains("Sân Bóng Trần Hưng Đạo")) {
+            txtPhoneDetail.setText("08 2214 9048");
+            txtAddrDetail.setText("44/5 Phạm Văn Chiêu, P.9, Gò Vấp, TP HCM");
+        } else if (name.contains("Sân Bóng Trần Hưng Đạo")) {
             imgDetail.setBackgroundResource(R.drawable.thd);
             txtNameDetail.setText(name);
-//            txtPhoneDetail.setText(phone);
-//            txtAddrDetail.setText(addr);
-            txtIntroDetail.setText(introduce);
-        } else if(name.contains("Sân bóng đá mini đường Cây Trâm")) {
+            txtPhoneDetail.setText("08 3984 9476");
+            txtAddrDetail.setText("88/995E Lê Đức Thọ, Phường 6, quận Gò Vấp, TP Hồ Chí Minh");
+        } else if (name.contains("Sân bóng đá mini đường Cây Trâm")) {
             imgDetail.setBackgroundResource(R.drawable.caytram);
             txtNameDetail.setText(name);
-//            txtPhoneDetail.setText(phone);
-//            txtAddrDetail.setText(addr);
-            txtIntroDetail.setText(introduce);
+            txtPhoneDetail.setText("08 6167 4774");
+            txtAddrDetail.setText("17/1D Cây Trâm, phường 9, quận Gò Vấp, Hồ Chí Minh");
+        } else {
+            imgDetail.setBackgroundResource(R.drawable.caytram);
+            txtNameDetail.setText(name);
+            txtPhoneDetail.setText("08 6167 4774");
+            txtAddrDetail.setText("17/1D Cây Trâm, phường 9, quận Gò Vấp, Hồ Chí Minh");
         }
+
+        txtIntroDetail.setText(introduce);
     }
 
     public void clickToDetailBook(View view) {
-        Intent intent = new Intent(this,BookActivity.class);
-        intent.putExtra("name",txtNameDetail.getText().toString());
+        Intent intent = new Intent(this, BookActivity.class);
+        intent.putExtra("name", txtNameDetail.getText().toString());
         startActivity(intent);
     }
 }
