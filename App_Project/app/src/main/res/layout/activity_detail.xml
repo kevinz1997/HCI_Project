@@ -193,7 +193,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_gravity="center"
                         android:textColor="#fff"
-                        android:background="@drawable/custom_divider"
+                        android:background="#4ad92b"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
                         android:text="Đặt Sân"
