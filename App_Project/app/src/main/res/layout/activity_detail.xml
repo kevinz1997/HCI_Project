@@ -245,7 +245,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:rating="5"
-                android:stepSize="1"/>
+                android:stepSize="1"
+                android:theme="@style/RatingBar"/>
 
             <TextView
                 android:id="@+id/txtRating"
@@ -255,7 +256,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Rất thích"
                 android:textSize="16sp"
-                android:textColor="#ff0000"
+                android:textColor="#ffff"
                 android:textStyle="bold" />
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"

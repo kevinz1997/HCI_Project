@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +30,9 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         createView();
+        mRatingBar = findViewById(R.id.ratingBar);
+        LayerDrawable stars = (LayerDrawable) mRatingBar.getProgressDrawable();
+        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(this, R.color.lightGrey), PorterDuff.Mode.SRC_ATOP);
         rate();
         TextView back = findViewById(R.id.txtDetailBack);
         back.setOnClickListener(new View.OnClickListener() {
@@ -42,7 +46,6 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void rate() {
-        mRatingBar = findViewById(R.id.ratingBar);
         mRatingScale = findViewById(R.id.txtRating);
         mFeedback = findViewById(R.id.edt);
         mSendFeedback = findViewById(R.id.btnRate);
