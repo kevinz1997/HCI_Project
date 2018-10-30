@@ -11,22 +11,15 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTabHost;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -35,7 +28,6 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,11 +48,21 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Field;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         OnMapReadyCallback,
@@ -142,22 +144,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     MarkerOptions marker1 = new MarkerOptions();
                     marker1.position(new LatLng(10.7994987, 106.6510931));
                     marker1.title("Sân Bóng Đá Lý Tự Trọng");
-                    marker1.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                    marker1.icon(BitmapDescriptorFactory.fromResource(R.drawable.red_marker));
 
                     MarkerOptions marker2 = new MarkerOptions();
                     marker2.position(new LatLng(10.800363, 106.6442051));
                     marker2.title("Sân Bóng Chảo Lửa");
-                    marker2.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                    marker2.icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_marker));
 
                     MarkerOptions marker3 = new MarkerOptions();
                     marker3.position(new LatLng(10.8084684, 106.6282646));
                     marker3.title("Sân bóng mini 20 Cộng Hòa");
-                    marker3.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                    marker3.icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_marker));
 
                     MarkerOptions marker4 = new MarkerOptions();
                     marker4.position(new LatLng(10.8112646, 106.6299058));
                     marker4.title("Sân bóng đá mini K334");
-                    marker4.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                    marker4.icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_marker));
                     eMarker = mMap.addMarker(marker1);
                     fMarker = mMap.addMarker(marker2);
                     gMarker = mMap.addMarker(marker3);
@@ -298,22 +300,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         MarkerOptions markerOptions1 = new MarkerOptions();
         markerOptions1.position(new LatLng(10.860665, 106.6263369));
         markerOptions1.title("Sân Bóng Sài Gòn FC Quận 12");
-        markerOptions1.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+        markerOptions1.icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_marker));
 
         MarkerOptions markerOptions2 = new MarkerOptions();
         markerOptions2.position(new LatLng(10.8552076, 106.6290468));
         markerOptions2.title("Sân bóng đá cỏ nhân tạo Đạt Đức");
-        markerOptions2.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+        markerOptions2.icon(BitmapDescriptorFactory.fromResource(R.drawable.red_marker));
 
         MarkerOptions markerOptions3 = new MarkerOptions();
         markerOptions3.position(new LatLng(10.8491383, 106.6285747));
         markerOptions3.title("Sân bóng đá cỏ nhân tạo Phương Nam");
-        markerOptions3.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+        markerOptions3.icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_marker));
 
         MarkerOptions markerOptions4 = new MarkerOptions();
         markerOptions4.position(new LatLng(10.8509507, 106.6270298));
         markerOptions4.title("Sân Bóng Trần Hưng Đạo");
-        markerOptions4.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+        markerOptions4.icon(BitmapDescriptorFactory.fromResource(R.drawable.red_marker));
         aMarker = mMap.addMarker(markerOptions1);
         bMarker = mMap.addMarker(markerOptions2);
         cMarker = mMap.addMarker(markerOptions3);
@@ -321,12 +323,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 //        if (mLastLocation != null) {
         MarkerOptions current = new MarkerOptions();
-        current.position(new LatLng(10.8534, 106.6293));
+        current.position(new LatLng(10.852939,106.629545));
         current.title("Vị trí hiện tại");
         current.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
         currentMarker = mMap.addMarker(current);
         currentMarker.showInfoWindow();
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(10.8534, 106.6293)));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(10.852939,106.629545)));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
 //        }
     }
@@ -418,12 +420,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
                 buildGoogleApiClient();
-                mMap.setMyLocationEnabled(true);
+//                mMap.setMyLocationEnabled(true);
                 mMap.getUiSettings().setZoomControlsEnabled(true);
             }
         } else {
             buildGoogleApiClient();
-            mMap.setMyLocationEnabled(true);
+//            mMap.setMyLocationEnabled(true);
         }
     }
 
@@ -501,13 +503,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onMarkerClick(Marker marker) {
         if (marker.equals(aMarker)) {
-//            txtDirection = findViewById(R.id.direction_bottom);
-//            txtDirection.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-                    direction(aMarker.getPosition(),true);
-//                }
-//            });
             float[] results = new float[1];
             Location.distanceBetween(currentMarker.getPosition().latitude, currentMarker.getPosition().longitude,
                     aMarker.getPosition().latitude, aMarker.getPosition().longitude,
@@ -547,6 +542,46 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             showBottomSheetDialog(distance, dMarker.getTitle());
 //            Toast.makeText(this, "this is san D", Toast.LENGTH_SHORT).show();
             return true;
+        } else if (marker.equals(eMarker)) {
+            float[] results = new float[1];
+            Location.distanceBetween(currentMarker.getPosition().latitude, currentMarker.getPosition().longitude,
+                    eMarker.getPosition().latitude, eMarker.getPosition().longitude,
+                    results);
+            double distance = results[0];
+//            double distance = calculationByDistance(currentMarker.getPosition(), dMarker.getPosition());
+            showBottomSheetDialog(distance, eMarker.getTitle());
+//            Toast.makeText(this, "this is san D", Toast.LENGTH_SHORT).show();
+            return true;
+        } else if (marker.equals(fMarker)) {
+            float[] results = new float[1];
+            Location.distanceBetween(currentMarker.getPosition().latitude, currentMarker.getPosition().longitude,
+                    fMarker.getPosition().latitude, fMarker.getPosition().longitude,
+                    results);
+            double distance = results[0];
+//            double distance = calculationByDistance(currentMarker.getPosition(), dMarker.getPosition());
+            showBottomSheetDialog(distance, fMarker.getTitle());
+//            Toast.makeText(this, "this is san D", Toast.LENGTH_SHORT).show();
+            return true;
+        } else if (marker.equals(gMarker)) {
+            float[] results = new float[1];
+            Location.distanceBetween(currentMarker.getPosition().latitude, currentMarker.getPosition().longitude,
+                    gMarker.getPosition().latitude, gMarker.getPosition().longitude,
+                    results);
+            double distance = results[0];
+//            double distance = calculationByDistance(currentMarker.getPosition(), dMarker.getPosition());
+            showBottomSheetDialog(distance, gMarker.getTitle());
+//            Toast.makeText(this, "this is san D", Toast.LENGTH_SHORT).show();
+            return true;
+        } else if (marker.equals(hMarker)) {
+            float[] results = new float[1];
+            Location.distanceBetween(currentMarker.getPosition().latitude, currentMarker.getPosition().longitude,
+                    hMarker.getPosition().latitude, hMarker.getPosition().longitude,
+                    results);
+            double distance = results[0];
+//            double distance = calculationByDistance(currentMarker.getPosition(), dMarker.getPosition());
+            showBottomSheetDialog(distance, hMarker.getTitle());
+//            Toast.makeText(this, "this is san D", Toast.LENGTH_SHORT).show();
+            return true;
         }
         return false;
     }
@@ -583,78 +618,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bundle.putString("name", name);
         bottomSheetFragment.setArguments(bundle);
         bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
-    }
-
-    private String makeURL (String sourcelat, String sourcelng, String destlat, String destlng ){
-        StringBuilder urlString = new StringBuilder();
-        urlString.append("https://maps.googleapis.com/maps/api/directions/json");
-        urlString.append("?origin=");// from
-        urlString.append(sourcelat);
-        urlString.append(",");
-        urlString.append(sourcelng);
-        urlString.append("&destination=");// to
-        urlString.append(destlat);
-        urlString.append(",");
-        urlString.append(destlng);
-        urlString.append("&key="+"AIzaSyDuX3ftH66X8b8ACwvYWUOezegfuZxrLJ4");
-        return urlString.toString();
-    }
-
-    private void direction(final LatLng latLngTest, boolean check) {
-        listStep = new ArrayList<LatLng>();
-        polyline = new PolylineOptions();
-
-
-        LatLng KHTN = new LatLng(10.762643, 106.682079);
-        LatLng PhoDiBoNguyenHue = new LatLng(10.774467, 106.703274);
-
-
-//        MarkerOptions option = new MarkerOptions();
-//        option.position(KHTN);
-//        option.title("Đại Học Khoa Học Tự Nhiên TP.HCM").snippet("Số 227 Nguyễn Văn Cừ, Quận 5");
-//        option.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-//        option.alpha(0.8f);
-//        option.rotation(0);
-//        Marker maker = map.addMarker(option);
-//        maker.showInfoWindow();
-//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(KHTN,17));
-
-//        MarkerOptions option2 = new MarkerOptions();
-//        option2.position(PhoDiBoNguyenHue);
-//        option2.title("Phố Đi Bộ Nguyễn Huệ").snippet("Quận 1 , TP.HCM");
-//        option2.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-//        option2.alpha(0.8f);
-//        option2.rotation(0);
-//        Marker maker2 = mMap.addMarker(option2);
-
-
-        final AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                String srcLat = String.valueOf(10.8534);
-                String srcLng = String.valueOf(106.6293);
-                String request = makeURL(srcLat, srcLng,String.valueOf(latLngTest.latitude),String.valueOf(latLngTest.longitude));
-                GetDirectionsTask task = new GetDirectionsTask(request);
-                ArrayList<LatLng> list = task.testDirection();
-                for (LatLng latLng : list) {
-                    listStep.add(latLng);
-                }
-                return null;
-            }
-            @Override
-            protected void onPostExecute(Void result) {
-                // TODO Auto-generated method stub
-                super.onPostExecute(result);
-                polyline.addAll(listStep);
-                Polyline line = mMap.addPolyline(polyline);
-                line.setColor(Color.BLUE);
-                line.setWidth(5);
-            }
-        };
-
-        if(check) {
-            task.execute();
-        }
     }
 }
