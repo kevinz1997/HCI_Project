@@ -26,14 +26,14 @@ import java.util.Calendar;
 
 
 public class BookActivity extends AppCompatActivity {
-    Spinner startHourSpinner, endHourSpinner, numberPitch;
-    TextView help, txtDate, txtPitchName, txtTotal;
+    Spinner startHourSpinner, endHourSpinner, numberPitch, bitCapkeo;
+    TextView help, txtDate, txtPitchName, txtTotal, txtAddress;
     Button btnBook;
 
     int number, total;
     double start, end;
     int totalPrice = 0;
-    String dateBook, startDate, endDate, pitchName;
+    String dateBook, startDate, endDate, pitchName, capkeo;
     private View progressView;
     private View bookView;
 
@@ -46,9 +46,12 @@ public class BookActivity extends AppCompatActivity {
         startHourSpinner = findViewById(R.id.startHour);
         endHourSpinner = findViewById(R.id.endHour);
         numberPitch = findViewById(R.id.numberPitch);
+        bitCapkeo = findViewById(R.id.bitCapkeo);
 //        txtDetail = findViewById(R.id.txtDetail);
         txtDate = findViewById(R.id.txtDate);
         txtPitchName = findViewById(R.id.txtPitchName);
+        txtAddress = findViewById(R.id.txtAddress);
+        txtAddress.setText("260 Quang trung gò vấp \n" + "Hồ Chí Minh");
         Intent intent = this.getIntent();
         pitchName = intent.getStringExtra("name");
         txtPitchName.setText(pitchName);
@@ -101,7 +104,7 @@ public class BookActivity extends AppCompatActivity {
                 } else if (dateBook == null) {
                     Toast.makeText(BookActivity.this, "Vui lòng chọn ngày.", Toast.LENGTH_SHORT).show();
                 } else {
-                    show(pitchName, dateBook, startDate, endDate, number, totalPrice);
+                    show(pitchName, dateBook, startDate, endDate, number, totalPrice, capkeo);
                 }
             }
         });
@@ -116,13 +119,14 @@ public class BookActivity extends AppCompatActivity {
                 "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30",
                 "21:00", "21:30", "22:00", "22:30", "23:00"};
         String[] data2 = {"5", "7", "11"};
+        String[] data3 = {"không", "có"};
 //        if(!pitchName.contains("A2")) {
 //            data2  = new String[]{"1", "2", "3", "4", "5"};
 //        } else {
 //            data2  = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9"};
 //        }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, data){
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.item_spinner, data){
             @Override
             public boolean isEnabled(int position) {
                 if(position == 1 || position == 2 || position == 3)
@@ -148,7 +152,7 @@ public class BookActivity extends AppCompatActivity {
                 return view;
             }
         };
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, data1){
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, R.layout.item_spinner, data1){
             @Override
             public boolean isEnabled(int position) {
                 if(position == 0 || position == 1 )
@@ -174,15 +178,38 @@ public class BookActivity extends AppCompatActivity {
                 return view;
             }
         };
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, data2);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, R.layout.item_spinner, data2){
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+
+                    tv.setTextColor(Color.BLACK);
+
+                return view;
+            }
+        };
+        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this, R.layout.item_spinner, data3){
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+
+                tv.setTextColor(Color.BLACK);
+
+                return view;
+            }
+        };
         startHourSpinner.setAdapter(adapter);
         popup(startHourSpinner);
         endHourSpinner.setAdapter(adapter1);
         popup(endHourSpinner);
         numberPitch.setAdapter(adapter2);
+        bitCapkeo.setAdapter(adapter3);
         adapter.notifyDataSetChanged();
         adapter1.notifyDataSetChanged();
         adapter2.notifyDataSetChanged();
+        adapter3.notifyDataSetChanged();
         change();
     }
 
@@ -304,6 +331,18 @@ public class BookActivity extends AppCompatActivity {
 
             }
         });
+
+        bitCapkeo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                capkeo = adapterView.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     public void showPriceDetail(View view) {
@@ -327,12 +366,12 @@ public class BookActivity extends AppCompatActivity {
         alert.show();
     }
 
-    private void show(String name, String date, String start, String end, int number, int total) {
+    private void show(String name, String date, String start, String end, int number, int total, String capkeo) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setCancelable(false);
         alert.setTitle("Thông tin đặt sân");
         alert.setMessage("Tên sân: " + name + "\n" + "Ngày: " + date + "\n" + "Giờ bắt đầu: " + start + "\n"
-                + "Giờ kết thúc: " + end + "\n" + "Loại sân: " + number + "\n" + "Tổng tiền: " + total);
+                + "Giờ kết thúc: " + end + "\n" + "Loại sân: " + number + "\n" + "Cáp kèo: " + capkeo + "\n" + "Tổng tiền: " + total);
         alert.setPositiveButton("Xác nhận", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
