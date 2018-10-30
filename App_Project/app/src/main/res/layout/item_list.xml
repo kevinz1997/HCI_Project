@@ -4,7 +4,15 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="7dp"
     android:paddingLeft="5dp"
-    android:paddingRight="5dp">
+    android:paddingRight="5dp"  >
+
+    <TextView
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtClear"
+        android:drawableRight="@drawable/delete"
+        android:visibility="gone"/>
 
     <ImageView
         android:layout_marginLeft="7dp"
@@ -14,6 +22,7 @@
         android:src="@mipmap/ic_launcher"/>
 
     <TextView
+        android:layout_below="@+id/txtClear"
         android:layout_toRightOf="@+id/img_history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,9 +32,4 @@
         android:textSize="17dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"/>
-    <View
-        android:layout_marginTop="170dp"
-        android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:background="#d3d3d3" />
 </RelativeLayout>
