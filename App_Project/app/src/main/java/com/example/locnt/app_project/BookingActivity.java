@@ -16,6 +16,7 @@ public class BookingActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private BookingAdapter mAdapter;
     private ArrayList<History> listHistory;
+    TextView tvUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,17 @@ public class BookingActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        tvUpdate = findViewById(R.id.txtUpdate);
+        tvUpdate.setVisibility(View.VISIBLE);
+        tvUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CustomDialog cd = new CustomDialog(BookingActivity.this);
+                cd.show();
+            }
+        });
+
         recyclerView = findViewById(R.id.booking_view);
         listHistory = new ArrayList<>();
         listHistory.add(new History("Sân bóng đá cỏ nhân tạo Đạt Đức","5A Nguyễn Văn Lượng, P16, Gò Vấp, TP HCM","15:30 - 18:00","11/11/2018",500000,R.drawable.datduc));

@@ -70,6 +70,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.viewHold
                     editor.commit();
                 }
             });
+
 //            itemView.setOnLongClickListener(new View.OnLongClickListener() {
 //                @Override
 //                public boolean onLongClick(View view) {
