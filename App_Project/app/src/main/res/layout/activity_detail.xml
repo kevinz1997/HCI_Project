@@ -245,7 +245,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:rating="5"
-                android:stepSize="1"/>
+                android:stepSize="1"
+                android:theme="@style/RatingBar"/>
 
             <TextView
                 android:id="@+id/txtRating"
@@ -255,7 +256,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Rất thích"
                 android:textSize="16sp"
-                android:textColor="#ff0000"
+                android:textColor="#ffff"
                 android:textStyle="bold" />
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
@@ -303,6 +304,184 @@
                 android:textColor="#FFF7ECEC"
                 android:textStyle="bold"
                 android:text="Xếp hạng &#38; Đánh giá"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/circle_avt"
+                        android:layout_margin="5dp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            android:textColor="#ffff"
+                            android:text="Nguyễn Thanh Lộc"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <RatingBar
+                                android:id="@+id/smallRatingBar"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginLeft="10dp"
+                                style="?attr/ratingBarStyleSmall"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:rating="4.5"
+                                android:theme="@style/RatingBar"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:layout_marginLeft="10dp"
+                                android:textColor="#ffff"
+                                android:textSize="20dp"
+                                android:text="2 ngày trước"/>
+                        </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#ffff"
+                            android:textSize="20dp"
+                            android:text="Sân đẹp, giá cả phải chăng, phù hợp với sinh viên, có thể tổ chức giải đấu tại đây."/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="#d3d3d3" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/circle_avt"
+                        android:layout_margin="5dp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            android:textColor="#ffff"
+                            android:text="Nguyễn Thêm Lộc"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <RatingBar
+                                android:id="@+id/smallRatingBar1"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginLeft="10dp"
+                                style="?attr/ratingBarStyleSmall"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:rating="5"
+                                android:theme="@style/RatingBar"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:layout_marginLeft="10dp"
+                                android:textColor="#ffff"
+                                android:textSize="20dp"
+                                android:text="5 ngày trước"/>
+                        </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#ffff"
+                            android:textSize="20dp"
+                            android:text="Sân sạch sẽ, đèn chiếu sáng tốt, giá cả hợp lí."/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="#d3d3d3" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="50dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/circle_avt"
+                        android:layout_margin="5dp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            android:textColor="#ffff"
+                            android:text="Trần Nguyên Hưng"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <RatingBar
+                                android:id="@+id/smallRatingBar2"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginLeft="10dp"
+                                style="?attr/ratingBarStyleSmall"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:rating="5"
+                                android:theme="@style/RatingBar"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:layout_marginLeft="10dp"
+                                android:textColor="#ffff"
+                                android:textSize="20dp"
+                                android:text="1 tuần trước"/>
+                        </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#ffff"
+                            android:textSize="20dp"
+                            android:text="Sân rộng,có nhiều sân,không gian thoáng mát,chất lượng cỏ tốt."/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>

@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BottomSheetFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="Tên Sân: "
-            android:textColor="#737373"
+            android:textColor="#000"
             android:textSize="16sp" />
         <TextView
             android:layout_marginLeft="10dp"
@@ -27,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:id="@+id/bottom_name"
-            android:textColor="#737373"
+            android:textColor="#000"
             android:textSize="16sp" />
 
     </LinearLayout>
@@ -45,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="Địa chỉ: "
-            android:textColor="#737373"
+            android:textColor="#000"
             android:textSize="16sp" />
         <TextView
             android:layout_marginLeft="10dp"
@@ -53,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:id="@+id/address_bottom"
-            android:textColor="#737373"
+            android:textColor="#000"
             android:textSize="16sp" />
 
     </LinearLayout>
@@ -71,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="SĐT: "
-            android:textColor="#737373"
+            android:textColor="#000"
             android:textSize="16sp" />
         <TextView
             android:layout_marginLeft="10dp"
@@ -79,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:id="@+id/phone_bottom"
-            android:textColor="#737373"
+            android:textColor="#000"
             android:textSize="16sp" />
 
     </LinearLayout>
@@ -96,7 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="Giá: "
-            android:textColor="#737373"
+            android:textColor="#000"
             android:textSize="16sp" />
         <TextView
             android:layout_marginLeft="10dp"
@@ -104,7 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:id="@+id/price_bottom"
-            android:textColor="#737373"
+            android:textColor="#000"
             android:textSize="16sp" />
 
     </LinearLayout>
@@ -121,7 +122,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="Đánh giá: "
-            android:textColor="#737373"
+            android:textColor="#000"
             android:textSize="16sp" />
         <RatingBar
             android:layout_marginTop="3dp"
@@ -145,7 +146,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="Khoảng cách: "
-            android:textColor="#737373"
+            android:textColor="#000"
             android:textSize="16sp" />
         <TextView
             android:layout_marginLeft="10dp"
@@ -153,7 +154,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:id="@+id/distance_in_bottom"
-            android:textColor="#737373"
+            android:textColor="#000"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -169,7 +170,7 @@
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:gravity="center"
             android:id="@+id/detail_bottom"
             android:text="@string/detail"
             android:textColor="#0000ff"
@@ -180,7 +181,7 @@
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:gravity="center"
             android:id="@+id/direction_bottom"
             android:text="@string/direction"
             android:textColor="#0000ff"
