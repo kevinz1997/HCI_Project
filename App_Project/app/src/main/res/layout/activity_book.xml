@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".BookActivity"
-    android:background="@drawable/book_background"
+    android:background="@drawable/background_booking_2"
     >
     <ProgressBar
         android:id="@+id/book_progess"
