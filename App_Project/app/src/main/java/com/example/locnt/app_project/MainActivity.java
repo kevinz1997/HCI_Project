@@ -526,7 +526,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
         String sensor = "sensor=false";
         String parameters = str_origin + "&" + str_dest + "&" + sensor;
-        String key = "AIzaSyD6AKWLKmTVKe3bQYTU1Txl-baLpXrjhSg";
+        String key = "AIzaSyB0pIyuLiBYNSzFIC_MIO7NSWzF5PFgTO4";
         String url = "https://maps.googleapis.com/maps/api/directions/json?" + parameters + "&key=" + key;
 
         return url;
