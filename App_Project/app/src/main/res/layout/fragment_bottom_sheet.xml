@@ -125,6 +125,8 @@
             android:textColor="#000"
             android:textSize="16sp" />
         <RatingBar
+            android:id="@+id/rating_bottom"
+            android:theme="@style/CustomRatingBar"
             android:layout_marginTop="3dp"
             android:layout_marginLeft="10dp"
             style="?attr/ratingBarStyleSmall"

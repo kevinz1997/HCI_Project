@@ -2,19 +2,24 @@ package com.example.locnt.app_project;
 
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 public class BottomSheetFragment extends BottomSheetDialogFragment {
 
     TextView txtDistance, txtNameBottom, txtPriceBottom, txtAddrBottom, txtPhoneBottom, txtDetailBottom, txtDirection;
     Button btnBottom;
+    RatingBar ratingBottom;
 
     public BottomSheetFragment() {
         // Required empty public constructor
@@ -37,6 +42,10 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 //        btnBottom = view.findViewById(R.id.btnBookBottom);
         txtDetailBottom = view.findViewById(R.id.detail_bottom);
         txtDirection = view.findViewById(R.id.direction_bottom);
+        ratingBottom = view.findViewById(R.id.rating_bottom);
+        LayerDrawable stars = (LayerDrawable) ratingBottom.getProgressDrawable();
+        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(getContext(), R.color.red), PorterDuff.Mode.SRC_ATOP);
+
         txtDirection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
