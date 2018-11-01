@@ -164,9 +164,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="2"
+        android:weightSum="3"
         android:paddingBottom="8dp"
         android:paddingTop="8dp">
+
+        <Button
+            android:layout_marginLeft="10dp"
+            android:id="@+id/btnBookBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#4ad92b"
+            android:textColor="#ffff"
+            android:textSize="15sp"
+            android:text="Đặt sân"/>
+
         <TextView
             android:layout_weight="1"
             android:layout_marginLeft="10dp"

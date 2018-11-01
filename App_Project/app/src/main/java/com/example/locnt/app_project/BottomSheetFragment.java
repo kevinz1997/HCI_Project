@@ -2,7 +2,9 @@ package com.example.locnt.app_project;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,7 +20,7 @@ import android.widget.TextView;
 public class BottomSheetFragment extends BottomSheetDialogFragment {
 
     TextView txtDistance, txtNameBottom, txtPriceBottom, txtAddrBottom, txtPhoneBottom, txtDetailBottom, txtDirection;
-    Button btnBottom;
+    Button btnBookBottom;
     RatingBar ratingBottom;
 
     public BottomSheetFragment() {
@@ -39,7 +41,10 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         txtAddrBottom = view.findViewById(R.id.address_bottom);
         txtPriceBottom = view.findViewById(R.id.price_bottom);
         txtPhoneBottom = view.findViewById(R.id.phone_bottom);
-//        btnBottom = view.findViewById(R.id.btnBookBottom);
+        btnBookBottom = view.findViewById(R.id.btnBookBottom);
+
+        Bundle bundle = getArguments();
+        final String name = bundle.getString("name");
         txtDetailBottom = view.findViewById(R.id.detail_bottom);
         txtDirection = view.findViewById(R.id.direction_bottom);
         ratingBottom = view.findViewById(R.id.rating_bottom);
@@ -53,10 +58,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
             }
         });
 
-        Bundle bundle = getArguments();
-        final String name = bundle.getString("name");
         txtNameBottom.setText(name);
-
         txtDetailBottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,6 +74,9 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         } else if (name.contains("Sân bóng đá cỏ nhân tạo Đạt Đức")) {
             txtAddrBottom.setText("Unnamed Road, Tân Hưng Thuận, Quận 12, Hồ Chí Minh, Việt Nam");
             txtPhoneBottom.setText("08 3589 5720");
+            btnBookBottom.setEnabled(false);
+            btnBookBottom.setText("Hết sân");
+            btnBookBottom.setBackgroundColor(Color.parseColor("#bab2b2"));
 //            btnBottom.setEnabled(false);
         } else if (name.contains("Sân bóng đá cỏ nhân tạo Phương Nam")) {
             txtAddrBottom.setText("Đông Hưng Thuận, Quận 12, Hồ Chí Minh, Việt Nam");
@@ -79,8 +84,20 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         } else {
             txtAddrBottom.setText("Unnamed Road, Trung Mỹ Tây, Quận 12, Hồ Chí Minh, Việt Nam");
             txtPhoneBottom.setText("08 3984 9476");
+            btnBookBottom.setEnabled(false);
+            btnBookBottom.setText("Hết sân");
+            btnBookBottom.setBackgroundColor(Color.parseColor("#bab2b2"));
 //            btnBottom.setEnabled(false);
         }
+        btnBookBottom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), BookActivity.class);
+                intent.putExtra("name", name);
+                startActivity(intent);
+            }
+        });
+
         txtPriceBottom.setText("200.000 VNĐ/h");
         txtDistance.setText(5 + " km");
         // Inflate the layout for this fragment

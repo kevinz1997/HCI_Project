@@ -1,7 +1,9 @@
 package com.example.locnt.app_project;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -160,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     MarkerOptions marker1 = new MarkerOptions();
                     marker1.position(new LatLng(10.7994987, 106.6510931));
                     marker1.title("Sân Bóng Đá Lý Tự Trọng");
-                    marker1.icon(BitmapDescriptorFactory.fromResource(R.drawable.red_marker));
+                    marker1.icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_marker));
 
                     MarkerOptions marker2 = new MarkerOptions();
                     marker2.position(new LatLng(10.800363, 106.6442051));
@@ -254,13 +256,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             }
             case R.id.nav_logout: {
-                logout();
+                logoutDialog();
                 break;
             }
         }
         //close navigation drawer
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return false;
+    }
+
+    private void logoutDialog(){
+        AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+
+        alert.setTitle("ĐĂNG XUẤT");
+        alert.setMessage("Bạn muốn đăng xuất không?");
+        alert.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                logout();
+            }
+        });
+        alert.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        alert.show();
     }
 
     private void setNavigationViewListener() {
