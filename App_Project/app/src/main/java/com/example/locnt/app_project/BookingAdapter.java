@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -51,7 +53,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.viewHold
     }
 
     public class viewHolder extends RecyclerView.ViewHolder {
-        TextView tvName, tvClear;
+        TextView tvName, tvClear, tvUpdate;
         ImageView imgView;
 
         public viewHolder(final View itemView) {
@@ -59,6 +61,18 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.viewHold
             tvName = itemView.findViewById(R.id.txtNameHistory);
             imgView = itemView.findViewById(R.id.img_history);
             tvClear = itemView.findViewById(R.id.txtClear);
+
+            tvUpdate = itemView.findViewById(R.id.txtUpdate);
+            tvUpdate.setVisibility(View.VISIBLE);
+            tvUpdate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    CustomDialog cd = new CustomDialog(context);
+                    cd.setCancelable(false);
+                    cd.show();
+                }
+            });
+
             tvClear.setVisibility(View.VISIBLE);
             tvClear.setOnClickListener(new View.OnClickListener() {
                 @Override

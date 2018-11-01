@@ -23,6 +23,7 @@ import android.widget.Toast;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 
 public class BookActivity extends AppCompatActivity {
@@ -49,9 +50,15 @@ public class BookActivity extends AppCompatActivity {
         bitCapkeo = findViewById(R.id.bitCapkeo);
 //        txtDetail = findViewById(R.id.txtDetail);
         txtDate = findViewById(R.id.txtDate);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = Calendar.getInstance().getTime();
+        String formattedDate = sdf.format(date);
+        txtDate.setText(formattedDate);
+        dateBook = formattedDate;
+
         txtPitchName = findViewById(R.id.txtPitchName);
         txtAddress = findViewById(R.id.txtAddress);
-        txtAddress.setText("260 Quang trung gò vấp \n" + "Hồ Chí Minh");
+        txtAddress.setText("260 Quang Trung,\n Q.Gò Vấp,\n TP. Hồ Chí Minh");
         Intent intent = this.getIntent();
         pitchName = intent.getStringExtra("name");
         txtPitchName.setText(pitchName);
@@ -88,7 +95,6 @@ public class BookActivity extends AppCompatActivity {
 ////                finish();
 //            }
 //        });
-        txtDate.setText("Chọn ngày");
         txtDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,8 +107,6 @@ public class BookActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (start >= end || (end - start) < 1) {
                     Toast.makeText(BookActivity.this, "Giờ tối thiểu là 1 giờ.", Toast.LENGTH_SHORT).show();
-                } else if (dateBook == null) {
-                    Toast.makeText(BookActivity.this, "Vui lòng chọn ngày.", Toast.LENGTH_SHORT).show();
                 } else {
                     show(pitchName, dateBook, startDate, endDate, number, totalPrice, capkeo);
                 }
@@ -267,22 +271,22 @@ public class BookActivity extends AppCompatActivity {
                         if(end - start >= 1) {
                             if(end <= 17){
                                 totalPrice = (int) ((end - start) * 300000);
-                                txtTotal.setText(""+totalPrice);
+                                txtTotal.setText(""+totalPrice/1000 + "." + "000" + " VNĐ");
                             } else {
                                 totalPrice = (int) ((end - start) * 400000);
-                                txtTotal.setText(""+totalPrice);
+                                txtTotal.setText(""+totalPrice/1000 + "." + "000" + " VNĐ");
                             }
                         }
                     } else {
                         if(end <= 16){
                             totalPrice = (int) ((end - start) * 150000);
-                            txtTotal.setText(""+totalPrice);
+                            txtTotal.setText(""+totalPrice/1000 + "." + "000" + " VNĐ");
                         } else if(16 < end && end <= 18){
                             totalPrice = (int) ((end - start) * 180000);
-                            txtTotal.setText(""+totalPrice);
+                            txtTotal.setText(""+totalPrice/1000 + "." + "000" + " VNĐ");
                         } else {
                             totalPrice = (int) ((end - start) * 220000);
-                            txtTotal.setText(""+totalPrice);
+                            txtTotal.setText(""+totalPrice/1000 + "." + "000" + " VNĐ");
                         }
                     }
                 } else {
@@ -290,22 +294,22 @@ public class BookActivity extends AppCompatActivity {
                         if(end - start >= 1) {
                             if(end <= 17){
                                 totalPrice = (int) ((end - start) * 300000);
-                                txtTotal.setText(""+totalPrice);
+                                txtTotal.setText(""+totalPrice/1000 + "." + "000" + " VNĐ");
                             } else {
                                 totalPrice = (int) ((end - start) * 400000);
-                                txtTotal.setText(""+totalPrice);
+                                txtTotal.setText(""+totalPrice/1000 + "." + "000" + " VNĐ");
                             }
                         }
                     } else {
                         if(end <= 16){
                             totalPrice = (int) ((end - start) * 150000);
-                            txtTotal.setText(""+totalPrice);
+                            txtTotal.setText(""+totalPrice/1000 + "." + "000" + " VNĐ");
                         } else if(16 < end && end <= 18){
                             totalPrice = (int) ((end - start) * 180000);
-                            txtTotal.setText(""+totalPrice);
+                            txtTotal.setText(""+totalPrice/1000 + "." + "000" + " VNĐ");
                         } else {
                             totalPrice = (int) ((end - start) * 220000);
-                            txtTotal.setText(""+totalPrice);
+                            txtTotal.setText(""+totalPrice/1000 + "." + "000" + " VNĐ");
                         }
                     }
                 }
@@ -371,11 +375,11 @@ public class BookActivity extends AppCompatActivity {
         alert.setCancelable(false);
         alert.setTitle("Thông tin đặt sân");
         alert.setMessage("Tên sân: " + name + "\n" + "Ngày: " + date + "\n" + "Giờ bắt đầu: " + start + "\n"
-                + "Giờ kết thúc: " + end + "\n" + "Loại sân: " + number + "\n" + "Cáp kèo: " + capkeo + "\n" + "Tổng tiền: " + total);
+                + "Giờ kết thúc: " + end + "\n" + "Loại sân: " + number + "\n" + "Cáp kèo: " + capkeo + "\n" + "Tổng tiền: " + total/1000 + ".000 VNĐ");
         alert.setPositiveButton("Xác nhận", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                new CountDownTimer(3000, 1000) {
+                new CountDownTimer(2000, 1000) {
 
                     @Override
                     public void onTick(long millisUntilFinished) {
@@ -384,13 +388,21 @@ public class BookActivity extends AppCompatActivity {
 
                     @Override
                     public void onFinish() {
-                        Toast.makeText(BookActivity.this, "Đặt sân thành công ", Toast.LENGTH_LONG).show();
+                        AlertDialog.Builder alert = new AlertDialog.Builder(BookActivity.this);
+                        alert.setCancelable(false);
+                        alert.setMessage("Đặt sân thành công.");
+                        alert.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(BookActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                dialog.dismiss();
+                            }
+                        });
+                        alert.show();
                         showProgress(false);
                     }
                 }.start();
-
-                Intent intent = new Intent(BookActivity.this, MainActivity.class);
-                startActivity(intent);
             }
         });
         alert.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {

@@ -16,7 +16,6 @@ public class BookingActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private BookingAdapter mAdapter;
     private ArrayList<History> listHistory;
-    TextView tvUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,16 +28,6 @@ public class BookingActivity extends AppCompatActivity {
                 Intent intent = new Intent(BookingActivity.this,MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
-            }
-        });
-
-        tvUpdate = findViewById(R.id.txtUpdate);
-        tvUpdate.setVisibility(View.VISIBLE);
-        tvUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CustomDialog cd = new CustomDialog(BookingActivity.this);
-                cd.show();
             }
         });
 
