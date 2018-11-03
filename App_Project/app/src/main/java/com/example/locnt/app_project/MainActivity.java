@@ -378,7 +378,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         MarkerOptions current = new MarkerOptions();
         current.position(new LatLng(10.852939, 106.629545));
         current.title("Vị trí hiện tại");
-        current.icon(BitmapDescriptorFactory.defaultMarker());
+        current.icon(BitmapDescriptorFactory.fromResource(R.drawable.user_location));
         currentMarker = mMap.addMarker(current);
         currentMarker.showInfoWindow();
         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(10.852939, 106.629545)));
@@ -474,12 +474,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
                 buildGoogleApiClient();
-//                mMap.setMyLocationEnabled(true);
+                mMap.setMyLocationEnabled(true);
                 mMap.getUiSettings().setZoomControlsEnabled(true);
             }
         } else {
             buildGoogleApiClient();
-//            mMap.setMyLocationEnabled(true);
+            mMap.setMyLocationEnabled(true);
         }
     }
 
@@ -543,7 +543,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         if (mGoogleApiClient == null) {
                             buildGoogleApiClient();
                         }
-//                        mMap.setMyLocationEnabled(true);
+                        mMap.setMyLocationEnabled(true);
                     }
 
                 } else {

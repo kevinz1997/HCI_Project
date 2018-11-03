@@ -15,7 +15,7 @@
         android:drawableRight="@drawable/delete_30"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
-        android:visibility="gone"
+        android:layout_marginBottom="5dp"
        />
     <TextView
         android:layout_below="@+id/txtClear"
@@ -27,7 +27,7 @@
         android:drawableRight="@drawable/edit_30"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
-        android:visibility="gone"
+
         />
     <ImageView
         android:layout_marginLeft="7dp"
