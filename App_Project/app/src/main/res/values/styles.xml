@@ -15,4 +15,12 @@
         <item name="colorControlNormal">@color/duskYellow</item>
         <item name="colorControlActivated">@color/red</item>
     </style>
+    <style name="MyCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/lightBlue</item>
+    </style>
+    <style name="MyCheckBox2" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">#000</item>
+        <item name="colorControlActivated">@color/lightBlue</item>
+    </style>
 </resources>

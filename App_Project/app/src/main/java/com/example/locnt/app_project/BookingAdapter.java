@@ -67,7 +67,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.viewHold
             tvUpdate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    CustomDialog cd = new CustomDialog(context);
+                    CustomDialog cd = new CustomDialog(context,listData.get(getAdapterPosition()).getName());
                     cd.setCancelable(false);
                     cd.show();
                 }

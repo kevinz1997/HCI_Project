@@ -19,10 +19,7 @@ import android.widget.Toast;
 
 public class DetailActivity extends AppCompatActivity {
 
-    RatingBar mRatingBar, smallRatingBar, smallRatingBar1, smallRatingBar2;
-    TextView mRatingScale;
-    EditText mFeedback;
-    Button mSendFeedback;
+    RatingBar smallRatingBar, smallRatingBar1, smallRatingBar2;
     ImageView imgDetail;
     TextView txtNameDetail, txtPhoneDetail, txtAddrDetail, txtIntroDetail;
 
@@ -31,19 +28,16 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         createView();
-        mRatingBar = findViewById(R.id.ratingBar);
-        LayerDrawable stars = (LayerDrawable) mRatingBar.getProgressDrawable();
-        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(this, R.color.lightGrey), PorterDuff.Mode.SRC_ATOP);
         smallRatingBar = findViewById(R.id.smallRatingBar);
         LayerDrawable star = (LayerDrawable) smallRatingBar.getProgressDrawable();
-        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(this, R.color.lightGrey), PorterDuff.Mode.SRC_ATOP);
+        star.getDrawable(2).setColorFilter(ContextCompat.getColor(this, R.color.lightGrey), PorterDuff.Mode.SRC_ATOP);
         smallRatingBar1 = findViewById(R.id.smallRatingBar1);
         LayerDrawable star1 = (LayerDrawable) smallRatingBar1.getProgressDrawable();
-        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(this, R.color.lightGrey), PorterDuff.Mode.SRC_ATOP);
+        star1.getDrawable(2).setColorFilter(ContextCompat.getColor(this, R.color.lightGrey), PorterDuff.Mode.SRC_ATOP);
         smallRatingBar2 = findViewById(R.id.smallRatingBar2);
         LayerDrawable star2 = (LayerDrawable) smallRatingBar2.getProgressDrawable();
-        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(this, R.color.lightGrey), PorterDuff.Mode.SRC_ATOP);
-        rate();
+        star2.getDrawable(2).setColorFilter(ContextCompat.getColor(this, R.color.lightGrey), PorterDuff.Mode.SRC_ATOP);
+
         TextView back = findViewById(R.id.txtDetailBack);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,50 +49,7 @@ public class DetailActivity extends AppCompatActivity {
         });
     }
 
-    private void rate() {
-        mRatingScale = findViewById(R.id.txtRating);
-        mFeedback = findViewById(R.id.edt);
-        mSendFeedback = findViewById(R.id.btnRate);
-        mRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                mRatingScale.setText(String.valueOf(v));
-                switch ((int) ratingBar.getRating()) {
-                    case 1:
-                        mRatingScale.setText("Ghét");
-                        break;
-                    case 2:
-                        mRatingScale.setText("Không thích");
-                        break;
-                    case 3:
-                        mRatingScale.setText("OK");
-                        break;
-                    case 4:
-                        mRatingScale.setText("Thích");
-                        break;
-                    case 5:
-                        mRatingScale.setText("Rất thích");
-                        break;
-                    default:
-                        mRatingScale.setText("");
-                }
-            }
-        });
 
-        mSendFeedback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                    SharedPreferences pre = getSharedPreferences("feedback", MODE_PRIVATE);
-//                    SharedPreferences.Editor edit = pre.edit();
-//                    edit.putString("datafeedback",mFeedback.getText().toString());
-//                    edit.putString("ratefeedback",mRatingScale.getText().toString());
-//                    edit.commit();
-                Toast.makeText(DetailActivity.this, "Cảm ơn bạn đã đánh giá." + mFeedback.getText().toString(), Toast.LENGTH_SHORT).show();
-                mFeedback.setText("");
-                mRatingBar.setRating(5);
-            }
-        });
-    }
 
     private void createView() {
         imgDetail = findViewById(R.id.imgDetail);

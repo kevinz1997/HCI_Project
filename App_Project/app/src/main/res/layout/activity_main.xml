@@ -8,13 +8,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    >
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/background_booking_2">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -92,7 +94,11 @@
             android:layout_height="wrap_content"
             android:id="@+id/layout_filter"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:background="#ffff"
+            android:visibility="gone"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            >
 
             <View
                 android:layout_width="fill_parent"

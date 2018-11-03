@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -23,21 +25,25 @@ import java.util.Date;
 public class CustomDialog extends Dialog {
 
     public Dialog dialog;
-    public Button yes,no;
+    public TextView yes,no;
     public Context mContext;
-    Spinner startHourDialog, endHourDialog, numberPitchDialog, bitCapkeoDialog;
-    TextView txtDateDialog;
+    Spinner startHourDialog, endHourDialog, numberPitchDialog;
+    CheckBox bitCapkeoDialog;
+    TextView txtDateDialog, nameUpdate;
+    String name;
 
-    public CustomDialog(Context context) {
+    public CustomDialog(Context context, String name) {
         super(context);
         this.mContext = context;
+        this.name = name;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_dialog);
-
+        nameUpdate = findViewById(R.id.nameUpdate);
+        nameUpdate.setText(name);
         startHourDialog = findViewById(R.id.startHourDialog);
         endHourDialog = findViewById(R.id.endHourDialog);
         numberPitchDialog = findViewById(R.id.numberPitchDialog);
@@ -64,7 +70,7 @@ public class CustomDialog extends Dialog {
                 "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30",
                 "21:00", "21:30", "22:00", "22:30", "23:00"};
         String[] data2 = {"5", "7", "11"};
-        String[] data3 = {"không", "có"};
+//        String[] data3 = {"không", "có"};
 //        if(!pitchName.contains("A2")) {
 //            data2  = new String[]{"1", "2", "3", "4", "5"};
 //        } else {
@@ -134,27 +140,37 @@ public class CustomDialog extends Dialog {
                 return view;
             }
         };
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(getContext(), R.layout.item_spinner, data3){
-            @Override
-            public View getDropDownView(int position, View convertView, ViewGroup parent) {
-                View view = super.getDropDownView(position, convertView, parent);
-                TextView tv = (TextView) view;
-
-                tv.setTextColor(Color.BLACK);
-
-                return view;
-            }
-        };
+//        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(getContext(), R.layout.item_spinner, data3){
+//            @Override
+//            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+//                View view = super.getDropDownView(position, convertView, parent);
+//                TextView tv = (TextView) view;
+//
+//                tv.setTextColor(Color.BLACK);
+//
+//                return view;
+//            }
+//        };
         startHourDialog.setAdapter(adapter);
         popup(startHourDialog);
         endHourDialog.setAdapter(adapter1);
         popup(endHourDialog);
         numberPitchDialog.setAdapter(adapter2);
-        bitCapkeoDialog.setAdapter(adapter3);
+//        bitCapkeoDialog.setAdapter(adapter3);
+        bitCapkeoDialog.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    bitCapkeoDialog.setChecked(true);
+                } else {
+                    bitCapkeoDialog.setChecked(false);
+                }
+            }
+        });
         adapter.notifyDataSetChanged();
         adapter1.notifyDataSetChanged();
         adapter2.notifyDataSetChanged();
-        adapter3.notifyDataSetChanged();
+//        adapter3.notifyDataSetChanged();
 
         yes = findViewById(R.id.btnUpdateDialog);
         yes.setOnClickListener(new View.OnClickListener() {

@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -27,14 +29,16 @@ import java.util.Date;
 
 
 public class BookActivity extends AppCompatActivity {
-    Spinner startHourSpinner, endHourSpinner, numberPitch, bitCapkeo;
+    Spinner startHourSpinner, endHourSpinner, numberPitch;
+    CheckBox checkBet;
     TextView help, txtDate, txtPitchName, txtTotal, txtAddress;
     Button btnBook;
 
     int number, total;
     double start, end;
     int totalPrice = 0;
-    String dateBook, startDate, endDate, pitchName, capkeo;
+    String dateBook, startDate, endDate, pitchName;
+    boolean capkeo;
     private View progressView;
     private View bookView;
 
@@ -47,7 +51,7 @@ public class BookActivity extends AppCompatActivity {
         startHourSpinner = findViewById(R.id.startHour);
         endHourSpinner = findViewById(R.id.endHour);
         numberPitch = findViewById(R.id.numberPitch);
-        bitCapkeo = findViewById(R.id.bitCapkeo);
+//        bitCapkeo = findViewById(R.id.bitCapkeo);
 //        txtDetail = findViewById(R.id.txtDetail);
         txtDate = findViewById(R.id.txtDate);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -123,7 +127,7 @@ public class BookActivity extends AppCompatActivity {
                 "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30",
                 "21:00", "21:30", "22:00", "22:30", "23:00"};
         String[] data2 = {"5", "7", "11"};
-        String[] data3 = {"không", "có"};
+//        String[] data3 = {"không", "có"};
 //        if(!pitchName.contains("A2")) {
 //            data2  = new String[]{"1", "2", "3", "4", "5"};
 //        } else {
@@ -193,27 +197,41 @@ public class BookActivity extends AppCompatActivity {
                 return view;
             }
         };
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this, R.layout.item_spinner, data3){
+//        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this, R.layout.item_spinner, data3){
+//            @Override
+//            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+//                View view = super.getDropDownView(position, convertView, parent);
+//                TextView tv = (TextView) view;
+//
+//                tv.setTextColor(Color.BLACK);
+//
+//                return view;
+//            }
+//        };
+        checkBet = findViewById(R.id.checkBet);
+        checkBet.setChecked(false);
+        checkBet.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public View getDropDownView(int position, View convertView, ViewGroup parent) {
-                View view = super.getDropDownView(position, convertView, parent);
-                TextView tv = (TextView) view;
-
-                tv.setTextColor(Color.BLACK);
-
-                return view;
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    checkBet.setChecked(true);
+                    capkeo = true;
+                } else {
+                    checkBet.setChecked(false);
+                    capkeo = false;
+                }
             }
-        };
+        });
         startHourSpinner.setAdapter(adapter);
         popup(startHourSpinner);
         endHourSpinner.setAdapter(adapter1);
         popup(endHourSpinner);
         numberPitch.setAdapter(adapter2);
-        bitCapkeo.setAdapter(adapter3);
+//        bitCapkeo.setAdapter(adapter3);
         adapter.notifyDataSetChanged();
         adapter1.notifyDataSetChanged();
         adapter2.notifyDataSetChanged();
-        adapter3.notifyDataSetChanged();
+//        adapter3.notifyDataSetChanged();
         change();
     }
 
@@ -336,17 +354,17 @@ public class BookActivity extends AppCompatActivity {
             }
         });
 
-        bitCapkeo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                capkeo = adapterView.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        bitCapkeo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+//                capkeo = adapterView.getItemAtPosition(position).toString();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
     }
 
     public void showPriceDetail(View view) {
@@ -370,15 +388,14 @@ public class BookActivity extends AppCompatActivity {
         alert.show();
     }
 
-    private void show(String name, String date, String start, String end, int number, int total, String capkeo) {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setCancelable(false);
-        alert.setTitle("Thông tin đặt sân");
-        alert.setMessage("Tên sân: " + name + "\n" + "Ngày: " + date + "\n" + "Giờ bắt đầu: " + start + "\n"
-                + "Giờ kết thúc: " + end + "\n" + "Loại sân: " + number + "\n" + "Cáp kèo: " + capkeo + "\n" + "Tổng tiền: " + total/1000 + ".000 VNĐ");
-        alert.setPositiveButton("Xác nhận", new DialogInterface.OnClickListener() {
+    private void show(String name, String date, String start, String end, int type, int total, boolean capkeo) {
+        final CustomBillDialog cbd = new CustomBillDialog(BookActivity.this, name, date, start, end, capkeo, type, total);
+        cbd.setCancelable(false);
+        cbd.show();
+        cbd.btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View v) {
+                cbd.dismiss();
                 new CountDownTimer(2000, 1000) {
 
                     @Override
@@ -395,7 +412,9 @@ public class BookActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intent = new Intent(BookActivity.this, MainActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
+                                finish();
                                 dialog.dismiss();
                             }
                         });
@@ -405,14 +424,6 @@ public class BookActivity extends AppCompatActivity {
                 }.start();
             }
         });
-        alert.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        alert.show();
     }
     private void showProgress(boolean param) {
         progressView.setVisibility(param ? View.VISIBLE : View.GONE);

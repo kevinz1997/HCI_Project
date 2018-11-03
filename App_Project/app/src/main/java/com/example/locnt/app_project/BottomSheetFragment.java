@@ -21,7 +21,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
     TextView txtDistance, txtNameBottom, txtPriceBottom, txtAddrBottom, txtPhoneBottom, txtDetailBottom, txtDirection;
     Button btnBookBottom;
-    RatingBar ratingBottom;
+    RatingBar bottomRating;
 
     public BottomSheetFragment() {
         // Required empty public constructor
@@ -47,9 +47,9 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         final String name = bundle.getString("name");
         txtDetailBottom = view.findViewById(R.id.detail_bottom);
         txtDirection = view.findViewById(R.id.direction_bottom);
-        ratingBottom = view.findViewById(R.id.rating_bottom);
-        LayerDrawable stars = (LayerDrawable) ratingBottom.getProgressDrawable();
-        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(getContext(), R.color.red), PorterDuff.Mode.SRC_ATOP);
+        bottomRating = view.findViewById(R.id.bottom_rating);
+        LayerDrawable stars = (LayerDrawable) bottomRating.getProgressDrawable();
+        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(getContext(), R.color.lightGrey), PorterDuff.Mode.SRC_ATOP);
 
         txtDirection.setOnClickListener(new View.OnClickListener() {
             @Override

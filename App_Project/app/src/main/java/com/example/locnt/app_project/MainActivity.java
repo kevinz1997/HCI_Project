@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     LinearLayout layoutFilter;
     Button btnFilter;
     Double distanceRoute = 0.0;
+    ImageView imgMyLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,6 +149,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        imgMyLocation = findViewById(R.id.imgMyLocation);
+        imgMyLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentMarker.showInfoWindow();
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(10.8534, 106.6293)));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
+            }
+        });
+
         btnFilter = findViewById(R.id.btnFilter);
         btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     addMarker();
                     currentMarker.showInfoWindow();
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(10.8534, 106.6293)));
-                    mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
                 } else {
                     MarkerOptions marker1 = new MarkerOptions();
                     marker1.position(new LatLng(10.7994987, 106.6510931));
@@ -188,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                    markers.add(hMarker);
 
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(10.8113, 106.6299)));
-                    mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
                 }
             }
         });
@@ -378,11 +389,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         MarkerOptions current = new MarkerOptions();
         current.position(new LatLng(10.852939, 106.629545));
         current.title("Vị trí hiện tại");
-        current.icon(BitmapDescriptorFactory.defaultMarker());
+        current.icon(BitmapDescriptorFactory.fromResource(R.drawable.user_location));
         currentMarker = mMap.addMarker(current);
         currentMarker.showInfoWindow();
         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(10.852939, 106.629545)));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
         markers.add(currentMarker);
 //        }
     }

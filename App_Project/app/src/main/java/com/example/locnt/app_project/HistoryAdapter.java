@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,6 +65,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.viewHold
     public class viewHolder extends RecyclerView.ViewHolder {
         TextView tvName;
         ImageView imgView;
+        Button btnRateInHistory;
 
         public viewHolder(final View itemView) {
             super(itemView);
@@ -91,6 +93,16 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.viewHold
                     }
 
                     return false;
+                }
+            });
+            btnRateInHistory = itemView.findViewById(R.id.btnRateInHistory);
+            btnRateInHistory.setVisibility(View.VISIBLE);
+            btnRateInHistory.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CustomRateDialog crd = new CustomRateDialog(context);
+                    crd.setCancelable(false);
+                    crd.show();
                 }
             });
         }
