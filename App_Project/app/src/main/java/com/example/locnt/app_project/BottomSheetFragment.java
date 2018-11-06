@@ -49,7 +49,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         txtDirection = view.findViewById(R.id.direction_bottom);
         bottomRating = view.findViewById(R.id.bottom_rating);
         LayerDrawable stars = (LayerDrawable) bottomRating.getProgressDrawable();
-        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(getContext(), R.color.lightGrey), PorterDuff.Mode.SRC_ATOP);
+        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(getContext(), R.color.yellow), PorterDuff.Mode.SRC_ATOP);
 
         txtDirection.setOnClickListener(new View.OnClickListener() {
             @Override

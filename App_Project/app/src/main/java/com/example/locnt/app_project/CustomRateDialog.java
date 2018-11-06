@@ -36,7 +36,7 @@ public class CustomRateDialog extends Dialog {
         mRatingBar = findViewById(R.id.ratingBarHistory);
         rate();
         LayerDrawable stars = (LayerDrawable) mRatingBar.getProgressDrawable();
-        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(mContext, R.color.lightGrey), PorterDuff.Mode.SRC_ATOP);
+        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(mContext, R.color.yellow), PorterDuff.Mode.SRC_ATOP);
     }
 
     private void rate() {
